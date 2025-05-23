@@ -1,0 +1,17 @@
+import 'package:eventk/Core/errors/errorModel.dart';
+
+class DeleteprofilepicStates {}
+
+class DeleteProfilePicInitialState extends DeleteprofilepicStates {}
+
+class DeleteProfilePicLoadingState extends DeleteprofilepicStates {}
+
+class DeleteProfilePicSuccessState extends DeleteprofilepicStates {
+  final ErrorModel message;
+  DeleteProfilePicSuccessState(this.message);
+}
+
+class DeleteProfilePicFailureState extends DeleteprofilepicStates {
+  final String error;
+  DeleteProfilePicFailureState(this.error);
+}

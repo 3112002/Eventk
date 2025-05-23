@@ -1,0 +1,2 @@
+/*Yara❤️*/
+class CategoriesModelId {}

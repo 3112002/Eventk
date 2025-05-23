@@ -1,0 +1,2 @@
+G:/eventk4/eventk/android/app/.cxx/RelWithDebInfo/2c5d5z2w/x86/CMakeFiles/edit_cache.dir
+G:/eventk4/eventk/android/app/.cxx/RelWithDebInfo/2c5d5z2w/x86/CMakeFiles/rebuild_cache.dir

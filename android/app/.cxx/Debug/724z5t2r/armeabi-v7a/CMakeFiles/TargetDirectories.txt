@@ -1,0 +1,2 @@
+D:/Users/Yara/Desktop/eventk/android/app/.cxx/Debug/724z5t2r/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/Users/Yara/Desktop/eventk/android/app/.cxx/Debug/724z5t2r/armeabi-v7a/CMakeFiles/rebuild_cache.dir
