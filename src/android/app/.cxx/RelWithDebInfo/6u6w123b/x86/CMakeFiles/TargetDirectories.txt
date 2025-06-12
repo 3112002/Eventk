@@ -1,0 +1,2 @@
+D:/Users/Yara/Desktop/eventk/android/app/.cxx/RelWithDebInfo/6u6w123b/x86/CMakeFiles/edit_cache.dir
+D:/Users/Yara/Desktop/eventk/android/app/.cxx/RelWithDebInfo/6u6w123b/x86/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,13 @@
+import 'package:eventk/Features/Event/Data/model/Event_model.dart';
+
+class EventStates {}
+class EventInitialState extends EventStates{}
+class EventLoadingState extends EventStates{}
+class EventLoadedState extends EventStates{
+  final EventDetailsModel event;
+  EventLoadedState(this.event);
+}
+class EventErrorState extends EventStates{
+  final String error;
+  EventErrorState(this.error);
+}
