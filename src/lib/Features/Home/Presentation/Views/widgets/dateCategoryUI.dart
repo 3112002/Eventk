@@ -4,12 +4,12 @@ import 'package:eventk/Core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 /*Yara Adel Mohamed*/
-int value = 0;
 
 class DateFilterUI extends StatefulWidget {
   const DateFilterUI({super.key, this.initialValue, this.onChanged});
   final String? initialValue;
   final ValueChanged<String>? onChanged;
+
   @override
   State<DateFilterUI> createState() => _DateFilterUIState();
 }
@@ -17,10 +17,19 @@ class DateFilterUI extends StatefulWidget {
 class _DateFilterUIState extends State<DateFilterUI> {
   late String? groupValue;
 
+  final List<String> dateOptions = [
+    "Today",
+    "Tomorrow",
+    "This week",
+    "This weekend",
+    "Next week",
+    "This month",
+    "This year",
+  ];
+
   @override
   void initState() {
     super.initState();
-    // Initialize from widget property
     groupValue = widget.initialValue;
   }
 
@@ -28,113 +37,35 @@ class _DateFilterUIState extends State<DateFilterUI> {
     if (newValue == null) return;
     setState(() {
       groupValue = newValue;
-      // getIt<CacheHelper>().saveData(key: 'selectedDate', value: groupValue);
     });
     widget.onChanged?.call(newValue);
+    getIt<CacheHelper>().saveData(key: 'selectedDate', value: newValue);
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return ListView.builder(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
+      itemCount: dateOptions.length,
+      itemBuilder: (BuildContext context, int index) {
+        return buildRadio(dateOptions[index]);
+      },
+    );
+  }
+
+  Widget buildRadio(String value) {
+    return Row(
       children: [
-        Row(
-          children: [
-            Radio<String>(
-                groupValue: groupValue,
-                value: 'This weekend',
-                activeColor: Colors.blue,
-                onChanged: onChanged),
-            Text(
-              "This weekend",
-              style: Styles.styleText20,
-            ),
-          ],
+        Radio<String>(
+          groupValue: groupValue,
+          value: value,
+          activeColor: Colors.blue,
+          onChanged: onChanged,
         ),
-        Row(
-          children: [
-            Radio<String>(
-              groupValue: groupValue,
-              activeColor: Colors.blue,
-              value: "This week",
-              onChanged: onChanged,
-            ),
-            Text(
-              "This week",
-              style: Styles.styleText20,
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Radio<String>(
-              groupValue: groupValue,
-              activeColor: Colors.blue,
-              value: "Next week",
-              onChanged: onChanged,
-            ),
-            Text(
-              "Next week",
-              style: Styles.styleText20,
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Radio<String>(
-              groupValue: groupValue,
-              activeColor: Colors.blue,
-              value: "To day",
-              onChanged: onChanged,
-            ),
-            Text(
-              "To day",
-              style: Styles.styleText20,
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Radio<String>(
-              groupValue: groupValue,
-              value: "This month",
-              activeColor: Colors.blue,
-              onChanged: onChanged,
-            ),
-            Text(
-              "This month",
-              style: Styles.styleText20,
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Radio<String>(
-              groupValue: groupValue,
-              value: "Tomorrow",
-              activeColor: Colors.blue,
-              onChanged: onChanged,
-            ),
-            Text(
-              "Tomorrow",
-              style: Styles.styleText20,
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Radio<String>(
-              groupValue: groupValue,
-              value: 'This year',
-              activeColor: Colors.blue,
-              onChanged: onChanged,
-            ),
-            Text(
-              "This year",
-              style: Styles.styleText20,
-            ),
-          ],
+        Text(
+          value,
+          style: Styles.styleText20,
         ),
       ],
     );

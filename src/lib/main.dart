@@ -18,6 +18,7 @@ import 'package:eventk/Features/Home/Presentation/Views/categoreDeatlis.dart';
 import 'package:eventk/Features/Home/Presentation/Views/homePage.dart';
 import 'package:eventk/Features/Authentication/Presentation/Views/loginPage.dart';
 import 'package:eventk/Features/Authentication/Presentation/Views/signupPage.dart';
+import 'package:eventk/Features/Home/Presentation/Views/orgainzationHome.dart';
 import 'package:eventk/Features/Home/domain/home_repo.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/interetedPage.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/addInterest_cubit/addInterest_cubit.dart';
@@ -115,6 +116,7 @@ class MyApp extends StatelessWidget {
                 CategoreDeatlis.id: (context) => CategoreDeatlis(),
                 FavouritesPage.id: (context) => FavouritesPage(),
                 ForYouPage.id: (context) => ForYouPage(),
+                OrgainzationHome.id: (context) => OrgainzationHome(),
                 /*
                 Signinrequiredpage.id: (context) {
                   final args = ModalRoute.of(context)!.settings.arguments

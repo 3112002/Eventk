@@ -139,7 +139,7 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                 } else if (selectedDate == 'This week') {
                   fromDate = today;
                   toDate = afterWeek;
-                } else if (selectedDate == 'To day') {
+                } else if (selectedDate == 'Today') {
                   fromDate = today;
                   toDate = today.add(
                     Duration(hours: 24),
@@ -149,13 +149,17 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                   toDate = today.add(
                     Duration(days: 14),
                   );
-                } else if (selectedDate == 'This yean') {
+                } else if (selectedDate == 'This year') {
                   fromDate = today;
                   toDate = DateTime(now.year, now.month + 1, 0);
                 } else if (selectedDate == 'Tomorrow') {
                   fromDate = today.add(Duration(hours: 24));
                   toDate = today.add(Duration(hours: 48));
                 }
+                getIt<CacheHelper>()
+                    .saveData(key: 'fromDate', value: fromDate.toString());
+                getIt<CacheHelper>()
+                    .saveData(key: 'toDate', value: toDate.toString());
               }),
             ),
             address == null ? TurnOnLocation() : DistanceFilterUI(),
@@ -178,21 +182,31 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                       MaterialStateProperty.all<Color>(Colors.white),
                 ),
                 onPressed: () {
-                  String endPoint = '?';
-                  // if (getIt<CacheHelper>().getData(key: 'categoryName') !=
-                  //     null) {
-                  //   endPoint = endPoint +
-                  //       '&CategoriesIds=${getIt<CacheHelper>().getData(key: 'categoryId')}';
-                  // }
-                  if (getIt<CacheHelper>().getData(key: 'selectedDate') !=
-                      null) {
-                    endPoint =
-                        endPoint + '&FromDate=${fromDate}&ToDate=${toDate}';
+                  String endPoint = '';
+                  List<String> params = [];
+
+                  var categoryId =
+                      getIt<CacheHelper>().getData(key: "categoryId");
+
+                  final from = getIt<CacheHelper>().getData(key: 'fromDate');
+                  final to = getIt<CacheHelper>().getData(key: 'toDate');
+                  if (categoryId != null && categoryId.toString().isNotEmpty) {
+                    params.add('CategoryId=$categoryId');
+                  }
+
+                  if (from != null && to != null) {
+                    params.add('fromDate=$from');
+                    params.add('toDate=$to');
+                  }
+                  if (params.isNotEmpty) {
+                    endPoint = '?' + params.join('&');
                   }
 
                   getIt<CacheHelper>()
                       .saveData(key: 'endPoint', value: endPoint);
-
+                  getIt<CacheHelper>().removeData(key: 'categoryId');
+                  getIt<CacheHelper>().removeData(key: 'fromDate');
+                  getIt<CacheHelper>().removeData(key: 'toDate');
                   Navigator.pop(context, endPoint);
                 },
                 child: Text('Apply'),
