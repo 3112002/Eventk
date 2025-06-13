@@ -23,6 +23,7 @@ class _OrganizationState extends State<Organization> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.organizationss.organizationId);
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: [

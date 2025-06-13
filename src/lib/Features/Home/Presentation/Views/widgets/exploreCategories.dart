@@ -1,7 +1,6 @@
 import 'package:eventk/Core/utils/styles.dart';
 import 'package:eventk/Features/Home/Data/model/categoriesModel.dart';
 import 'package:eventk/Features/Home/Presentation/Views/allEventsPage.dart';
-import 'package:eventk/Features/Home/Presentation/Views/widgets/showMoreEvents.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
