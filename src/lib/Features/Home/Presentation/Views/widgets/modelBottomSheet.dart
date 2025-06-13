@@ -182,7 +182,7 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                       MaterialStateProperty.all<Color>(Colors.white),
                 ),
                 onPressed: () {
-                  String endPoint = '';
+                  String endPoint = '?';
                   List<String> params = [];
 
                   var categoryId =
@@ -199,7 +199,7 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                     params.add('toDate=$to');
                   }
                   if (params.isNotEmpty) {
-                    endPoint = '?' + params.join('&');
+                    endPoint = params.join('&');
                   }
 
                   getIt<CacheHelper>()

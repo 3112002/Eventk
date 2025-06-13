@@ -21,7 +21,11 @@ class GetEventsService {
       }
 
       Response response = await dio.get(
-        EndPoint.baseUrlEvents + EndPoint.getEvents + endPoint,
+        EndPoint.baseUrlEvents +
+            EndPoint.getEvents +
+            '?' +
+            endPoint +
+            '&PageNumber=$pageNumber',
         options: Options(
           headers: headers,
           validateStatus: (status) =>

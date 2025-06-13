@@ -42,7 +42,7 @@ class _EventsNearYouListViewState extends State<EventsNearYouListView> {
   Widget build(BuildContext context) {
     // widget.lat = null;
     // widget.long = null;
-    String endPoint = '?Latitude=${widget.lat}&Longitude=${widget.long}';
+    String endPoint = 'Latitude=${widget.lat}&Longitude=${widget.long}';
     // String endPoint =
     //GetNearEvents ""
     //   '?Latitude=${getIt<CacheHelper>().getData(key: 'latitude')}&Longitude=${getIt<CacheHelper>().getData(key: 'longitude')}';
