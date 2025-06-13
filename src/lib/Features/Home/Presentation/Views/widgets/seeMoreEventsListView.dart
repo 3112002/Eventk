@@ -21,7 +21,7 @@ class SeeMoreEventsListView extends StatefulWidget {
 class _SeeMoreEventsListViewState extends State<SeeMoreEventsListView> {
   final ScrollController scrollController = ScrollController();
 
-  int currentPage = 1;
+  int currentPage = 0;
   var isLoading = false;
   @override
   void didUpdateWidget(covariant SeeMoreEventsListView old) {
@@ -71,7 +71,7 @@ class _SeeMoreEventsListViewState extends State<SeeMoreEventsListView> {
   }
 
   List<Item> items = [];
-  //////////////// Handle If list is empty
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GetEventsCubit, GetEventsState>(

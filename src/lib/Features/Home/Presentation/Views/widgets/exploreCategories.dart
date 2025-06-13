@@ -17,29 +17,30 @@ class ExploreCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String endPoint = 'CategoriesIds=${categories.categoryId}';
-    return Column(
-      children: [
-        Container(
-          height: 100.sp,
-          width: 100.sp,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: NetworkImage(categories.categoryImage!),
+    return GestureDetector(
+        child: Column(
+          children: [
+            Container(
+              height: 100.sp,
+              width: 100.sp,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(categories.categoryImage!),
+                ),
+                borderRadius: BorderRadius.circular(150),
+              ),
             ),
-            borderRadius: BorderRadius.circular(150),
-          ),
+            Padding(padding: EdgeInsets.only(top: 10.h)),
+            Text(
+              categories.categoryName,
+              style: Styles.styleText15,
+            ),
+          ],
         ),
-        Padding(padding: EdgeInsets.only(top: 10.h)),
-        Text(
-          categories.categoryName,
-          style: Styles.styleText15,
-        ),
-      ],
-
-      // onTap: () {
-      //   Navigator.of(context).push(MaterialPageRoute(
-      //       builder: (context) => AllEventsPage(endPoint: endPoint)));
-    );
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => AllEventsPage(endPoint: endPoint)));
+        });
   }
 }
