@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class GetEventsCubit extends Cubit<GetEventsState> {
   GetEventsCubit(this.homeRepo) : super(InitialGetEventsState());
   HomeRepo homeRepo;
+
   Future<void> GetEvents(String endPoint, int pageNumber) async {
     if (pageNumber == 0) {
       emit(LoadingGetEventsState());

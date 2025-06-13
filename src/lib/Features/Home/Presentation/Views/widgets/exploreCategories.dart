@@ -1,15 +1,22 @@
 import 'package:eventk/Core/utils/styles.dart';
 import 'package:eventk/Features/Home/Data/model/categoriesModel.dart';
+import 'package:eventk/Features/Home/Presentation/Views/allEventsPage.dart';
+import 'package:eventk/Features/Home/Presentation/Views/widgets/showMoreEvents.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /*Yara Adel Mohamed*/
 class ExploreCategories extends StatelessWidget {
-  ExploreCategories({super.key, required this.categories, this.name});
-  CategoriesModel categories;
-  var name;
+  const ExploreCategories({
+    super.key,
+    required this.categories,
+  });
+  final CategoriesModel categories;
+//  final  String name;
+
   @override
   Widget build(BuildContext context) {
+    final String endPoint = 'CategoriesIds=${categories.categoryId}';
     return Column(
       children: [
         Container(
@@ -29,6 +36,10 @@ class ExploreCategories extends StatelessWidget {
           style: Styles.styleText15,
         ),
       ],
+
+      // onTap: () {
+      //   Navigator.of(context).push(MaterialPageRoute(
+      //       builder: (context) => AllEventsPage(endPoint: endPoint)));
     );
   }
 }

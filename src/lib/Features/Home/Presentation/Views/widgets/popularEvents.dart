@@ -23,7 +23,6 @@ class PopularEvents extends StatefulWidget {
 }
 
 class _PopularEventsState extends State<PopularEvents> {
-  
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -108,49 +107,38 @@ class _PopularEventsState extends State<PopularEvents> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(state.message.message)),
                           );
-                        }else if(state is AddInterestUnAuthorizedState){
+                        } else if (state is AddInterestUnAuthorizedState) {
                           showLoginSheet(context);
-                        }
-                        else if (state is AddInterestErrorState) {
+                        } else if (state is AddInterestErrorState) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(state.errorMessage)),
                           );
                         }
                       }, builder: (context, state) {
                         bool? isInterested = widget.item.isInterested;
-                        return RiveAnimatedIcon(
-                          riveIcon: RiveIcon.star,
-                          width: 12.w,
-                          height: 12.h,
-                          color:  widget.item.isInterested == true ? Color(0xFFFFD700): Colors.blue, 
-                          strokeWidth: 3,
-                          loopAnimation: false,
-                          onTap: () async {
+                        return IconButton(
+                          icon: widget.item.isInterested == true
+                              ? Icon(Icons.star)
+                              : Icon(Icons.star_border_outlined),
+                          color: Colors.blue,
+                          onPressed: () async {
                             if (isInterested == null) {
                               showLoginSheet(context);
                               return;
                             }
-                                 if (isInterested) {
+                            if (isInterested) {
                               await context
                                   .read<DeleteinterestCubit>()
                                   .deleteInterest(widget.item.eventId);
-                                  setState(() {
-      widget.item.isInterested = false;
-    });
+                              setState(() {
+                                widget.item.isInterested = false;
+                              });
                             } else {
                               await context
                                   .read<AddinterestCubit>()
                                   .addInterest(widget.item.eventId);
                             }
-                            /*
-
-                            setState(() {
-                              widget.item.isInterested = !isInterested!;
-                            });
-                            */
-                            
                           },
-                          onHover: (value) {},
                         );
                       })),
                 ),
