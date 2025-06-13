@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:eventk/Core/Services/get_it_services.dart';
 import 'package:eventk/Core/dataBase/Cache/Cache_Helper.dart';
 import 'package:eventk/Core/errors/errorModel.dart';
 import 'package:eventk/Core/errors/exceptions.dart';
@@ -11,12 +12,18 @@ class GetEventsService {
   GetEventsService(this.dio);
   Future<GetEventsModel> GetEvents(String endPoint, int pageNumber) async {
     try {
+      var token = getIt<CacheHelper>().getData(key: 'token');
+      Map<String, String> headers = {
+        'accept': '*/*',
+      };
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+
       Response response = await dio.get(
         EndPoint.baseUrlEvents + EndPoint.getEvents + endPoint,
         options: Options(
-          headers: {
-            'accept': '*/*',
-          },
+          headers: headers,
           validateStatus: (status) =>
               status! >= 200 && status < 300 || status == 404,
         ),

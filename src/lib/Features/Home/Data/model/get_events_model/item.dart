@@ -4,19 +4,19 @@ class Item {
   String eventName;
   DateTime? startDate;
   String eventPicture;
+
   bool? isInterested;
   dynamic longitude;
   dynamic latitude;
 
-  Item({
-    required this.eventId,
-    required this.eventName,
-    this.startDate,
-    required this.eventPicture,
-    this.longitude,
-    this.latitude,
-    this.isInterested
-  });
+  Item(
+      {required this.eventId,
+      required this.eventName,
+      this.startDate,
+      required this.eventPicture,
+      this.longitude,
+      this.latitude,
+      this.isInterested});
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
         eventId: json['eventId'] as int,
@@ -27,7 +27,7 @@ class Item {
         eventPicture: json['eventPicture'] as String,
         longitude: json['longitude'] as dynamic,
         latitude: json['latitude'] as dynamic,
-        isInterested: json['isInterested']??false,
+        isInterested: json['isInterested'] ?? false,
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,8 +37,7 @@ class Item {
         'eventPicture': eventPicture,
         'longitude': longitude,
         'latitude': latitude,
-        'isInterested':isInterested
-        
+        'isInterested': isInterested
       };
 
   @override

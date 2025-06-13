@@ -5,6 +5,7 @@ class GetEventsModel {
   List<Item> items;
   int? pageNumber;
   int? totalPages;
+
   bool? hasPreviousPage;
   bool? hasNextPage;
   int? pageSize;
