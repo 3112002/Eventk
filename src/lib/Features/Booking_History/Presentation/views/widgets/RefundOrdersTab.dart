@@ -21,29 +21,41 @@ class RefundedOrdersTab extends StatelessWidget {
         if (state is OrderItemLoadingState) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is OrderItemSuccessState) {
-          final refundedOrders =
-              state.orders.where((order) => order.isRefunded == true).toList();
+          final List<Map<String, dynamic>> refundedTickets = [];
+          for (var item in state.orders) {
+            for (var ticket in item.tickets) {
+              if (ticket.status == "refunded") {
+                refundedTickets.add({
+                  "ticketTypeName": item.ticketTypeName,
+                  "ticketTypeDetails": item.ticketTypeDetails,
+                  "unitPrice": item.unitPrice,
+                  "ticket": ticket,
+                });
+              }
+            }
+          }
 
-          if (refundedOrders.isEmpty) {
+          if (refundedTickets.isEmpty) {
             return const Center(child: Text("No refunded orders yet."));
           }
 
           return ListView.builder(
-            itemCount: refundedOrders.length,
+            itemCount: refundedTickets.length,
             itemBuilder: (context, index) {
-              final item = refundedOrders[index];
+              final data = refundedTickets[index];
+              final ticket = data["ticket"];
               return OrderCard(
-                ticketTypeDetails: item.ticketTypeDetails,
-                ticketTypeName: item.ticketTypeName,
-                quantity: item.quantity,
-                unitPrice: item.unitPrice,
-                tickets: item.tickets
-                    .map((t) => {
-                          'code': t.code,
-                          'status': t.status,
-                        })
-                    .toList(),
-                isRefunded: item.isRefunded,
+                ticketTypeDetails: data["ticketTypeDetails"],
+                ticketTypeName: data["ticketTypeName"],
+                quantity: 1,
+                unitPrice: data["unitPrice"],
+                tickets: [
+                  {
+                    'code': ticket.code,
+                    'status': ticket.status,
+                  }
+                ],
+                isRefunded: true,
                 orderIndex: index,
               );
             },

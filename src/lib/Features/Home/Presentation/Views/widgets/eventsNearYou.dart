@@ -1,14 +1,26 @@
 import 'package:eventk/Core/utils/styles.dart';
+import 'package:eventk/Core/widgets/showLoginSheet.dart';
 import 'package:eventk/Features/Home/Data/model/get_events_model/item.dart';
+import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/addInterest_cubit/addInterest_cubit.dart';
+import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/addInterest_cubit/addInterest_states.dart';
+import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/deleteInterest_cubit/deleteInterest_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:rive_animated_icon/rive_animated_icon.dart';
 
 /*Yara Adel Mohamed*/
-class EventsNearYou extends StatelessWidget {
-  EventsNearYou({super.key, this.item});
-  final Item? item;
+class EventsNearYou extends StatefulWidget {
+  EventsNearYou({super.key, required this.item});
+  final Item item;
+
+  @override
+  State<EventsNearYou> createState() => _EventsNearYouState();
+}
+
+class _EventsNearYouState extends State<EventsNearYou> {
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,7 +46,7 @@ class EventsNearYou extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: NetworkImage(item!.eventPicture),
+                        image: NetworkImage(widget.item!.eventPicture),
                       ),
                       borderRadius: BorderRadius.circular(15),
                     ),
@@ -56,14 +68,14 @@ class EventsNearYou extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          item!.eventName,
+                          widget.item!.eventName,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: Styles.styleText20,
                         ),
                         Text(
                           DateFormat('MMM dd, yyyy – hh:mm a')
-                              .format(item!.startDate!),
+                              .format(widget.item!.startDate!),
                           style:
                               Styles.styleText15.copyWith(color: Colors.blue),
                         ),
@@ -71,7 +83,7 @@ class EventsNearYou extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+               Positioned(
                   left: 265.w,
                   bottom: 90.h,
                   child: Container(
@@ -81,17 +93,50 @@ class EventsNearYou extends StatelessWidget {
                         shape: BoxShape.circle,
                         color: const Color.fromARGB(174, 255, 255, 255),
                       ),
-                      child: RiveAnimatedIcon(
-                        riveIcon: RiveIcon.star,
-                        width: 12.w,
-                        height: 12.h,
-                        color: Colors.blue,
-                        strokeWidth: 3,
-                        loopAnimation: false,
-                        onTap: () {},
-                        onHover: (value) {},
-                      )),
+                      child: BlocConsumer<AddinterestCubit, AddinterestStates>(
+                          listener: (context, state) {
+                        if (state is AddInterestSuccessState) {
+                          /*
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(state.message.message)),
+                          );
+                          */
+                        } else if (state is AddInterestUnAuthorizedState) {
+                          showLoginSheet(context);
+                        } else if (state is AddInterestErrorState) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(state.errorMessage)),
+                          );
+                        }
+                      }, builder: (context, state) {
+                        bool? isInterested = widget.item.isInterested;
+                        return IconButton(
+                          icon: widget.item.isInterested == true
+                              ? Icon(Icons.star)
+                              : Icon(Icons.star_border_outlined),
+                          color: Colors.blue,
+                          onPressed: () async {
+                            if (isInterested == null) {
+                              showLoginSheet(context);
+                              return;
+                            }
+                            if (isInterested) {
+                              await context
+                                  .read<DeleteinterestCubit>()
+                                  .deleteInterest(widget.item.eventId);
+                              setState(() {
+                                widget.item.isInterested = false;
+                              });
+                            } else {
+                              await context
+                                  .read<AddinterestCubit>()
+                                  .addInterest(widget.item.eventId);
+                            }
+                          },
+                        );
+                      })),
                 ),
+                ////
               ],
             ),
           ],

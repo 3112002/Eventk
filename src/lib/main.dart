@@ -20,12 +20,14 @@ import 'package:eventk/Features/Authentication/Presentation/Views/loginPage.dart
 import 'package:eventk/Features/Authentication/Presentation/Views/signupPage.dart';
 import 'package:eventk/Features/Home/Presentation/Views/orgainzationHome.dart';
 import 'package:eventk/Features/Home/domain/home_repo.dart';
+import 'package:eventk/Features/InitialScreens/Presentation/Views/widgets/InitialScreen.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/interetedPage.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/addInterest_cubit/addInterest_cubit.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/deleteInterest_cubit/deleteInterest_cubit.dart';
 import 'package:eventk/Features/Organization/Data/repos/OrganizationRepo_Impl.dart';
 import 'package:eventk/Features/Organization/Presenation/manager/Cubits/follow_unfollow_cubit/follow_unfollow_cubit.dart';
 import 'package:eventk/Features/Organization/Presenation/manager/Cubits/getOrganizationId_cubit/getOrganizationId_cubit.dart';
+import 'package:eventk/Features/Organization/Presenation/manager/Cubits/organizerToFollow_cubit/organizerToFollow_cubit.dart';
 import 'package:eventk/Features/Profille/Presentation/Views/changePassword.dart';
 import 'package:eventk/Features/Profille/Presentation/Views/deleteProfile.dart';
 import 'package:eventk/Features/Verification/Presentation/Views/forgetPassword.dart';
@@ -88,7 +90,12 @@ class MyApp extends StatelessWidget {
               BlocProvider(
                 create: (context) => GetorganizationidCubit(
                     service: GetorganizationbyidService(api: Api(dio: Dio()))),
+              ),
+               BlocProvider(
+        create: (context) => OrganizertofollowCubit(OrganizationrepoImpl())
+          ..fetchOrganizationsToFollow(isFollowing: false),
               )
+
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
@@ -128,7 +135,8 @@ class MyApp extends StatelessWidget {
                 },
                 */
               },
-              home: NavigationHomePage(),
+              home: InitialScreen()
+              //NavigationHomePage(),
             ));
       },
     );

@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Padding(padding: EdgeInsets.only(top: 80.h)),
+                          Padding(padding: EdgeInsets.only(top: 60.h)),
                           Container(
                             child: Image.asset(
                               AssestsImages.logo,

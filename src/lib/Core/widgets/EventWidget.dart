@@ -47,16 +47,7 @@ class _EventCardState extends State<EventCard> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image:AssetImage(AssestsImages.testImagePopluar),
-                        /*
-                        CachedNetworkImageProvider(
-                          widget.event.eventPicture ??
-                              AssestsImages.testImagePopluar,
-                          errorListener: (err) =>
-                              Image.asset(AssestsImages.testImagePopluar),
-                        ),
-                        */
-                        // image: NetworkImage(widget.item.eventPicture),
+                        image:NetworkImage(widget.event.eventPicture),
                       ),
                       borderRadius: BorderRadius.circular(15),
                     ),

@@ -1,13 +1,18 @@
 import 'package:eventk/Core/utils/AuthProvider.dart';
 import 'package:eventk/Core/utils/assests.dart';
+import 'package:eventk/Core/widgets/showLoginSheet.dart';
 import 'package:eventk/Features/Event/Presentaion/Manager/cubits/eventCubit/eventCubit.dart';
 import 'package:eventk/Features/Event/Presentaion/Manager/cubits/eventCubit/event_states';
 import 'package:eventk/Features/Event/Presentaion/Views/Widgets/InfoTile.dart';
 import 'package:eventk/Features/Event/Presentaion/Views/Widgets/openMap.dart';
+import 'package:eventk/Features/Home/Presentation/Views/organizationDeatlis.dart';
+import 'package:eventk/Features/Home/Presentation/Views/widgets/organization.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/addInterest_cubit/addInterest_cubit.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/deleteInterest_cubit/deleteInterest_cubit.dart';
+import 'package:eventk/Features/Organization/Presenation/views/OrganizerPage.dart';
 import 'package:eventk/Features/Payment/Presentation/views/TicketSelectionPage.dart';
 import 'package:eventk/constants.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,8 +88,8 @@ class _EventpageBodyState extends State<EventpageBody> {
                                 ),
                               )
                             : null,
-                        background: Image.asset(
-                          AssestsImages.backgroundEvents,
+                        background: Image.network(
+                          event.eventPicture,
                           width: double.infinity,
                           height: 180.h,
                           fit: BoxFit.cover,
@@ -123,12 +128,15 @@ class _EventpageBodyState extends State<EventpageBody> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 10),
                         child: Row(children: [
+                          /*
                           Image.asset(
                             AssestsImages.profileAvatar,
                             width: 26.w,
                             height: 26.h,
                           ),
+                          */
                           SizedBox(width: 8.w),
+                          /*
                           Expanded(
                             child: Text(
                               'Organized by ${event.organizationName}',
@@ -138,6 +146,41 @@ class _EventpageBodyState extends State<EventpageBody> {
                                 color: const Color.fromARGB(255, 129, 126, 126),
                               ),
                              
+                            ),
+                          ),
+                          */
+                          Expanded(
+                            child: RichText(
+                              text: TextSpan(
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16.sp,
+                                  color:
+                                      const Color.fromARGB(255, 129, 126, 126),
+                                ),
+                                children: [
+                                  const TextSpan(text: 'Organized by '),
+                                  TextSpan(
+                                    text: event.organizationName,
+                                    style: TextStyle(
+                                      color: Colors.blueAccent,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => OrganizerPage(
+                                              organizationId:
+                                                  event.organizationId,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ]),
@@ -214,7 +257,7 @@ class _EventpageBodyState extends State<EventpageBody> {
                         child: Center(
                           child: ElevatedButton.icon(
                             onPressed: () async {
-                              if (event.isInterested) {
+                              if (event.isInterested == true) {
                                 context
                                     .read<DeleteinterestCubit>()
                                     .deleteInterest(event.eventId);
@@ -225,10 +268,10 @@ class _EventpageBodyState extends State<EventpageBody> {
                               }
                             },
                             icon: Icon(
-                                event.isInterested
+                                event.isInterested == true
                                     ? Icons.star
                                     : Icons.star_border,
-                                color: event.isInterested
+                                color: event.isInterested == true
                                     ? Color(0xFFFFD700)
                                     : Colors.white,
                                 size: 22.sp),
@@ -261,16 +304,19 @@ class _EventpageBodyState extends State<EventpageBody> {
                               ? ElevatedButton(
                                   onPressed: () {
                                     final authProvider =
-                                        Provider.of<Authprovider>(context,listen: false);
+                                        Provider.of<Authprovider>(context,
+                                            listen: false);
                                     if (authProvider.isLoggedIn) {
                                       Navigator.push(
-                                      context, 
-                                      MaterialPageRoute(
-                                        builder:(context)=>TicketSelectionPage(eventId: widget.eventId,)
-                                         )
-                                      );
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TicketSelectionPage(
+                                                    eventId: widget.eventId,
+                                                  )));
                                     } else {
                                       //An error page appear when the user not login
+                                      showLoginSheet(context);
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -291,9 +337,7 @@ class _EventpageBodyState extends State<EventpageBody> {
                                   ),
                                 )
                               : ElevatedButton(
-                                  onPressed: () {
-                                    
-                                  },
+                                  onPressed: () {},
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: kButtonsColor,
                                     minimumSize:
