@@ -5,6 +5,7 @@ import 'package:eventk/Features/Authentication/Presentation/Views/loginPage.dart
 import 'package:eventk/Features/InitialScreens/Presentation/Views/widgets/onBoarding1.dart';
 import 'package:eventk/Features/Splash/Presentation/Views/splashScreen.dart';
 import 'package:flutter/material.dart';
+
 class InitialScreen extends StatefulWidget {
   const InitialScreen({Key? key}) : super(key: key);
 

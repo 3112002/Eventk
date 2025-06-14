@@ -20,7 +20,6 @@ class EventsNearYou extends StatefulWidget {
 }
 
 class _EventsNearYouState extends State<EventsNearYou> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -83,7 +82,7 @@ class _EventsNearYouState extends State<EventsNearYou> {
                     ),
                   ),
                 ),
-               Positioned(
+                Positioned(
                   left: 265.w,
                   bottom: 90.h,
                   child: Container(

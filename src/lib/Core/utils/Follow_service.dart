@@ -16,23 +16,20 @@ class Followservice {
       }
       print('Sending POST request to $url');
       print('Request body: {organizationId: $organizationId}');
-    
-
 
       final response = await api.post(
-        url: '$url?organizationId=$organizationId', 
-        token: token, body: {
-        'organizationId': organizationId,
-      });
+          url: '$url?organizationId=$organizationId',
+          token: token,
+          body: {
+            'organizationId': organizationId,
+          });
       print('Response Body: $response');
-      
+
       if (response['statusCode'] == 200) {
         print("Request Successful");
       } else {
         print("Error: ${response['statusCode']}");
       }
-   
-    
 
       return ErrorModel.fromJson(response);
     } catch (e) {

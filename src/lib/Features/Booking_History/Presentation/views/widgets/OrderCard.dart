@@ -56,32 +56,31 @@ class OrderCard extends StatelessWidget {
             if (ticketTypeDetails.isNotEmpty) ...[
               SizedBox(height: 6.h),
               Container(
-  margin: EdgeInsets.only(top: 6.h),
-  padding: EdgeInsets.all(10.r),
-  decoration: BoxDecoration(
-    color: Colors.grey.shade100,
-    borderRadius: BorderRadius.circular(12.r),
-    border: Border.all(color: Colors.grey.shade300),
-  ),
-  child: Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      SizedBox(width: 8.w),
-      Expanded(
-        child: Text(
-          ticketTypeDetails,
-          style: TextStyle(
-            fontSize: 14.sp,
-            color: Colors.grey[800],
-            fontStyle: FontStyle.italic,
-            height: 1.4,
-          ),
-        ),
-      ),
-    ],
-  ),
-),
-
+                margin: EdgeInsets.only(top: 6.h),
+                padding: EdgeInsets.all(10.r),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(12.r),
+                  border: Border.all(color: Colors.grey.shade300),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 8.w),
+                    Expanded(
+                      child: Text(
+                        ticketTypeDetails,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: Colors.grey[800],
+                          fontStyle: FontStyle.italic,
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
             Divider(height: 28.h, thickness: 1, color: Colors.grey[200]),
             Row(
@@ -97,8 +96,7 @@ class OrderCard extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Icon(Icons.payment,
-                        size: 20.sp, color: kButtonsColor),
+                    Icon(Icons.payment, size: 20.sp, color: kButtonsColor),
                     SizedBox(width: 4.w),
                     Text(
                       '${unitPrice.toStringAsFixed(2)} EGP',

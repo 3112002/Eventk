@@ -39,17 +39,17 @@ class ForYouPageDetalies extends StatelessWidget {
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => EventDetailsPage(
-                                        eventId: items[index].eventId,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: SeeMoreEventsDetalies(item: items[index]));
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => EventDetailsPage(
+                              eventId: items[index].eventId,
+                            ),
+                          ),
+                        );
+                      },
+                      child: SeeMoreEventsDetalies(item: items[index]));
                 });
           } else if (state is FailureGetEventsState) {
             return CustomErrorWidgets(errMessage: state.errMessage);

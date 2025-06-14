@@ -6,6 +6,8 @@ import 'package:eventk/Core/errors/failures.dart';
 import 'package:eventk/Core/utils/addInterest_service.dart';
 import 'package:eventk/Core/utils/deleteInterest_service.dart';
 import 'package:eventk/Core/utils/get_Interest_service.dart';
+import 'package:eventk/Core/utils/interset_model/interset_model.dart';
+import 'package:eventk/Core/widgets/getInterset.dart';
 import 'package:eventk/Features/Intersted/Data/models/getInterest_model.dart';
 import 'package:eventk/Features/Intersted/Domain/InterestedRepo.dart';
 import 'package:eventk/helper/api.dart';
@@ -25,27 +27,39 @@ class InterestedrepoImpl implements Interestedrepo {
   }
 
   @override
-  Future<Either<Failures, ErrorModel>> addInterest(int eventId)async {
-    try{
-      var addInterest=await AddinteretsService(api: Api(dio: Dio())).addInterest(eventID: eventId);
+  Future<Either<Failures, ErrorModel>> addInterest(int eventId) async {
+    try {
+      var addInterest = await AddinteretsService(api: Api(dio: Dio()))
+          .addInterest(eventID: eventId);
       return Right(addInterest);
-    }on CustomExceptions catch(e){
+    } on CustomExceptions catch (e) {
       return left(ServerFailure(e.message));
-    }catch(e){
+    } catch (e) {
       return left(ServerFailure(e.toString()));
-
     }
-    
   }
-  
+
   @override
-  Future<Either<Failures, ErrorModel>> deleteInterest(int eventId) async{
-    try{
-      var deleteinterest=await DeleteinterestService(api: Api(dio: Dio())).deleteInterest(eventId: eventId);
+  Future<Either<Failures, ErrorModel>> deleteInterest(int eventId) async {
+    try {
+      var deleteinterest = await DeleteinterestService(api: Api(dio: Dio()))
+          .deleteInterest(eventId: eventId);
       return Right(deleteinterest);
-    }on CustomExceptions catch(e){
+    } on CustomExceptions catch (e) {
       return left(ServerFailure(e.message));
-    }catch(e){
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, List<IntersetModel>>> getInt() async {
+    try {
+      var getList = await Getinterset(Dio()).GetIntersets();
+      return right(getList);
+    } on CustomExceptions catch (e) {
+      return left(ServerFailure(e.message));
+    } catch (e) {
       return left(ServerFailure(e.toString()));
     }
   }

@@ -6,7 +6,8 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _positionAnimation;
   late Animation<double> _opacityAnimation;
@@ -22,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     _positionAnimation = Tween<Offset>(
       begin: Offset.zero,
-      end: const Offset(-0.2, 0), 
+      end: const Offset(-0.2, 0),
     ).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );

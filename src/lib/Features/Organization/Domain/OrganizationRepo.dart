@@ -10,8 +10,8 @@ abstract class Organizationrepo {
     int pageNumber,
     int pageSize,
   });
-  Future<Either<Failures, List<Organizationtofollowmodel>>> getOrganizations({required bool isFollowing});
-   Future<Either<Failures,ErrorModel>>followOrganization(int organizationId);
-  Future<Either<Failures,ErrorModel>>unfollowOrganization(int organizationId);
-
+  Future<Either<Failures, List<Organizationtofollowmodel>>> getOrganizations(
+      {required bool isFollowing});
+  Future<Either<Failures, ErrorModel>> followOrganization(int organizationId);
+  Future<Either<Failures, ErrorModel>> unfollowOrganization(int organizationId);
 }

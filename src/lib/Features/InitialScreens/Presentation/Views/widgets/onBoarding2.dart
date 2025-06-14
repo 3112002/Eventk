@@ -1,4 +1,3 @@
-
 import 'package:eventk/Core/Services/get_it_services.dart';
 import 'package:eventk/Core/dataBase/Cache/Cache_Helper.dart';
 import 'package:eventk/Core/utils/assests.dart';
@@ -7,6 +6,7 @@ import 'package:eventk/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:ui';
+
 /*Yara❤️*/
 class Onboarding2 extends StatelessWidget {
   const Onboarding2({super.key});
@@ -26,11 +26,9 @@ class Onboarding2 extends StatelessWidget {
                 children: [
                   Positioned(
                     left: 10.w,
-                    
                     width: 340.w,
                     height: 340.h,
-                     child: Image.asset(AssestsImages.onBoarding2Circles),
-
+                    child: Image.asset(AssestsImages.onBoarding2Circles),
                   ),
                   Positioned(
                     top: 8.h,
@@ -38,7 +36,6 @@ class Onboarding2 extends StatelessWidget {
                     width: 280.w,
                     height: 316.h,
                     child: Image.asset(AssestsImages.onBoarding2Illustration),
-
                   ),
                 ],
               ),
@@ -54,18 +51,18 @@ class Onboarding2 extends StatelessWidget {
             TextButton(
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all<Size>(Size(300.w, 55.h)),
-                backgroundColor: MaterialStateProperty.all<Color>(kPrimaryColor),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(kPrimaryColor),
               ),
-              onPressed: ()async{
-                   await getIt<CacheHelper>().saveData(key: 'showHome', value: true);
+              onPressed: () async {
+                await getIt<CacheHelper>()
+                    .saveData(key: 'showHome', value: true);
 
-                    
-                    Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => LoginPage()),
-            );
-                   
-                  },
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
               child: Text(
                 ' Get Started ',
                 style: TextStyle(
@@ -76,11 +73,7 @@ class Onboarding2 extends StatelessWidget {
             ),
           ],
         ),
-    ),
-);
+      ),
+    );
+  }
 }
-}
-
-
-
-

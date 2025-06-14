@@ -19,10 +19,11 @@ class OrganizertofollowCubit extends Cubit<OrganizationsToFollowState> {
 
   void updateOrganizationFollowStatus(int orgId, bool isFollowed) {
     if (state is OrganizationsToFollowSuccessState) {
-      final currentList = (state as OrganizationsToFollowSuccessState).organizations;
+      final currentList =
+          (state as OrganizationsToFollowSuccessState).organizations;
       final updatedList = currentList.map((org) {
         if (org.organizationId == orgId) {
-          return org.copyWith(isFollowed: isFollowed); 
+          return org.copyWith(isFollowed: isFollowed);
         }
         return org;
       }).toList();

@@ -9,8 +9,7 @@ class OrderitemModel {
   final int orderItemId;
   final List<TicketModel> tickets;
   OrderitemModel(
-      {
-      required this.orderItemId,
+      {required this.orderItemId,
       required this.ticketTypeName,
       required this.ticketTypeDetails,
       required this.quantity,

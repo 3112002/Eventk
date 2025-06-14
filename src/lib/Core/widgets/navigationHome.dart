@@ -1,5 +1,6 @@
 import 'package:eventk/Core/utils/AuthProvider.dart';
 import 'package:eventk/Core/widgets/SignInRequiredPage.dart';
+import 'package:eventk/Features/Intersted/Presentation/Views/Widgets/intersetAllPage.dart';
 import 'package:eventk/Features/Profille/Presentation/Views/editProfilePage.dart';
 import 'package:eventk/Features/Profille/Presentation/Views/profilePage.dart';
 import 'package:eventk/constants.dart';
@@ -11,7 +12,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:provider/provider.dart';
-
 
 /* Yara Adel*/
 class NavigationHomePage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _HomePageState extends State<NavigationHomePage> {
 
   final List<Widget> pages = [
     HomePage(),
-    FavouritesPage(),
+    Intersetallpage(),
     ForYouPage(),
     ProfilePage(),
   ];
@@ -65,7 +65,7 @@ class _HomePageState extends State<NavigationHomePage> {
     final List<Widget> pages = [
       HomePage(),
       authProvider.isLoggedIn
-          ? FavouritesPage()
+          ? Intersetallpage()
           : Signinrequiredpage(
               message:
                   'Interested events will show up here Sign in to access them.',

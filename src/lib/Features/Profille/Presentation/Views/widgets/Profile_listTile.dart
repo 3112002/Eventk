@@ -16,8 +16,7 @@ class _ProfileListtileState extends State<ProfileListtile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-     
-      margin: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 9.0), 
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 9.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border: Border.all(

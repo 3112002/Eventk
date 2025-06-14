@@ -105,31 +105,28 @@ class Api {
           return jsonDecode(response.data);
         }
         return response.data;
-      } 
-      else {
-       throw DioException.badResponse(
-        statusCode: response.statusCode!,
-        requestOptions: response.requestOptions,
-        response: response,
-      );
-    }
-    }
-    on DioException catch (e) {
-    final statusCode = e.response?.statusCode;
-    final responseData = e.response?.data;
-    if (statusCode == 409) {
-      throw Exception('Username already exists');
-    } else if (statusCode == 400) {
-      throw Exception(responseData['message'] ?? 'Bad request');
-    } else if (statusCode == 401) {
-      throw Exception('Unauthorized. Please login again.');
-    } else if (statusCode == 500) {
-      throw Exception('Server error. Please try again later.');
-    }
-        throw Exception('Error ${statusCode ?? ''}: ${responseData ?? e.message}');
-
-    }
-     catch (e) {
+      } else {
+        throw DioException.badResponse(
+          statusCode: response.statusCode!,
+          requestOptions: response.requestOptions,
+          response: response,
+        );
+      }
+    } on DioException catch (e) {
+      final statusCode = e.response?.statusCode;
+      final responseData = e.response?.data;
+      if (statusCode == 409) {
+        throw Exception('Username already exists');
+      } else if (statusCode == 400) {
+        throw Exception(responseData['message'] ?? 'Bad request');
+      } else if (statusCode == 401) {
+        throw Exception('Unauthorized. Please login again.');
+      } else if (statusCode == 500) {
+        throw Exception('Server error. Please try again later.');
+      }
+      throw Exception(
+          'Error ${statusCode ?? ''}: ${responseData ?? e.message}');
+    } catch (e) {
       throw Exception('Error in PUT request: $e');
     }
   }

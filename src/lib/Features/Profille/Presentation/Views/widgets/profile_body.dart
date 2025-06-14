@@ -60,7 +60,6 @@ class _ProfileBodyState extends State<ProfileBody> {
         }
         */
       },
-      
       builder: (context, state) {
         if (state is ProfileLoadingState) {
           return const Center(child: CircularProgressIndicator());
@@ -76,51 +75,44 @@ class _ProfileBodyState extends State<ProfileBody> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 180.0),
-                
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    
-                        SizedBox(
-                          height: 15.h,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Center(
+                        child: Text(
+                          profile != null
+                              ? "${profile.firstName} ${profile.lastName}"
+                              : "Hi, Guest User",
+                          style: TextStyle(
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
-                        Center(
-                          child: Text(
-                            profile != null
-                                ? "${profile.firstName} ${profile.lastName}"
-                                : "Hi, Guest User",
-                            style: TextStyle(
-                                fontSize: 22.sp,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                      ),
+                      SizedBox(height: 6.h),
+                      Column(
+                        children: [
+                          Text(
+                            profile?.userName ?? "",
+                            style: Styles.styleText16
+                                .copyWith(color: Colors.grey[600]),
                           ),
-                        ),
-                        SizedBox(height: 6.h),
-                        Column(
-                          children: [
-                            Text(
-                              profile?.userName ?? "",
-                              style: Styles.styleText16
-                                  .copyWith(color: Colors.grey[600]),
-                            ),
-                          ],
-                        ),
-                        
-                  ]
-                
-                ),
+                        ],
+                      ),
+                    ]),
               ),
-              SizedBox(height: 100.h,),
-              
-             
+              SizedBox(
+                height: 100.h,
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 250.0),
                 child: SingleChildScrollView(
-                  child: 
-                  Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                     
                       SizedBox(height: 20.h),
                       ProfileListtile(
                         icon: Icons.edit,
@@ -149,24 +141,22 @@ class _ProfileBodyState extends State<ProfileBody> {
                             ).then((_) {
                               context.read<ProfileCubit>().fetchProfile();
                             });
+                          } else {
+                            showLoginSheet(context);
                           }
-                         else{
-                          showLoginSheet(context);
-                         }
                         },
                       ),
                       ProfileListtile(
                           icon: Icons.history,
                           text: "Booking History",
                           onTap: () {
-                            if(profile!=null)
-                            {
+                            if (profile != null) {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Bookinghistorypage()));
-                            }
-                            else{
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Bookinghistorypage()));
+                            } else {
                               showLoginSheet(context);
                             }
                           }),
@@ -174,13 +164,13 @@ class _ProfileBodyState extends State<ProfileBody> {
                           icon: Icons.people,
                           text: "Organizers to Follow",
                           onTap: () {
-                            if(profile!=null)
-                            {
-                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Organizerstofollow()));
-                            }else{
+                            if (profile != null) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Organizerstofollow()));
+                            } else {
                               showLoginSheet(context);
                             }
                           }),
@@ -188,12 +178,12 @@ class _ProfileBodyState extends State<ProfileBody> {
                           icon: Icons.password_sharp,
                           text: "Change Password",
                           onTap: () {
-                            if(profile!=null){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ChangePassword()));
-                            }else{
+                            if (profile != null) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ChangePassword()));
+                            } else {
                               showLoginSheet(context);
                             }
                           }),
@@ -201,13 +191,12 @@ class _ProfileBodyState extends State<ProfileBody> {
                           icon: Icons.support_agent_rounded,
                           text: "Support",
                           onTap: () {
-                            if(profile!=null){
+                            if (profile != null) {
                               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SupportPage()));
-
-                            }else{
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SupportPage()));
+                            } else {
                               showLoginSheet(context);
                             }
                           }),
@@ -219,29 +208,29 @@ class _ProfileBodyState extends State<ProfileBody> {
                           icon: Icons.delete_forever,
                           text: "Delete Profile",
                           onTap: () {
-                            if(profile!=null){
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DeleteProfile()));
-                            }else{
-                              showLoginSheet(context); 
+                            if (profile != null) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DeleteProfile()));
+                            } else {
+                              showLoginSheet(context);
                             }
                           }),
                       ProfileListtile(
-                         // icon: Icons.logout,
+                          // icon: Icons.logout,
                           //text: "Logout",
                           icon: profile != null ? Icons.logout : Icons.login,
                           text: profile != null ? "Logout" : "Sign in",
                           onTap: () {
-                            if(profile!=null){
-                            showLogoutDialog(context);
-                            }else{
+                            if (profile != null) {
+                              showLogoutDialog(context);
+                            } else {
                               Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
-      );
-                              
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()),
+                              );
                             }
                           }),
                       SizedBox(
@@ -282,7 +271,7 @@ class _ProfileBodyState extends State<ProfileBody> {
               child: Text("Logout", style: TextStyle(color: Colors.red)),
               onPressed: () async {
                 try {
-                 Provider.of<Authprovider>(context, listen: false).logout();
+                  Provider.of<Authprovider>(context, listen: false).logout();
                   if (context.mounted) {
                     Navigator.of(context, rootNavigator: true)
                         .pushNamedAndRemoveUntil(

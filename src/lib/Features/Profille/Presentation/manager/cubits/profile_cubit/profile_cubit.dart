@@ -8,8 +8,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> fetchProfile({bool forceRefresh = false}) async {
     emit(ProfileLoadingState());
     try {
-
-
       final profile = await service.fetchProfile();
 
       emit(ProfileLoadedState(profile));

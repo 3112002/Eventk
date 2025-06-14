@@ -14,7 +14,7 @@ class Followingbar extends StatelessWidget {
         if (state is OrganizationsToFollowLoadingState) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is OrganizationsToFollowFailureState) {
-          return  Center(
+          return Center(
               child: Text(state.errorMessage,
                   style: TextStyle(color: Colors.black)));
           //Center(child: Text(state.errorMessage));
