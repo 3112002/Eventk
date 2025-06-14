@@ -10,6 +10,11 @@ class CacheHelper {
   String? getDataString({required String key}) {
     return prefs.getString(key);
   }
+  Future<bool?> getDataBool({required String key}) async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getBool(key);
+}
+
 
   Future<bool> saveData({required String key, required dynamic value}) async {
     if (value is String) {

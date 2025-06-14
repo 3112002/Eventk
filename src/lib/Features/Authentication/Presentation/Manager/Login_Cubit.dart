@@ -10,6 +10,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this.authRepo) : super(InitailLoginState());
   final AuthRepo authRepo;
   Login({required String email, required String password}) async {
+    await getIt<CacheHelper>().removeData(key: 'isGuest');
     emit(LoadingLoginState());
     final result = await AuthRepoImpl()
         .makeRequestForLogin(email: email, password: password);

@@ -32,9 +32,15 @@ class _InitialScreenState extends State<InitialScreen> {
         MaterialPageRoute(builder: (context) => const Onboarding1()),
       );
     } else if (isLoggedIn) {
+      
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => NavigationHomePage()),
+      );
+      
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
       );
     } else {
       Navigator.pushReplacement(

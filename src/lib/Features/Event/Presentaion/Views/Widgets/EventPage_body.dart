@@ -1,3 +1,4 @@
+import 'package:eventk/Core/dataBase/Cache/Cache_Helper.dart';
 import 'package:eventk/Core/utils/AuthProvider.dart';
 import 'package:eventk/Core/utils/assests.dart';
 import 'package:eventk/Core/widgets/showLoginSheet.dart';
@@ -302,11 +303,16 @@ class _EventpageBodyState extends State<EventpageBody> {
                           padding: EdgeInsets.all(15),
                           child: event.isPaid
                               ? ElevatedButton(
-                                  onPressed: () {
+                                  onPressed: ()async {
+                                    final token = await CacheHelper().getDataString(key: 'token');
+
+                                    /*
                                     final authProvider =
                                         Provider.of<Authprovider>(context,
                                             listen: false);
-                                    if (authProvider.isLoggedIn) {
+                                            */
+                                   // if (authProvider.isLoggedIn) {
+                                   if (token != null && token.isNotEmpty) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(

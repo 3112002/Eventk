@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:eventk/Core/dataBase/Cache/Cache_Helper.dart'; 
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -38,8 +40,25 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     );
 
     _controller.forward();
-  }
 
+    Future.delayed(const Duration(seconds: 3), () {
+      navigateUser();
+    });
+  }
+void navigateUser() async {
+  final token = await CacheHelper().getDataString(key: 'token');
+  final isSkipped = await CacheHelper().getDataBool(key: 'showSkip');
+
+  if (token != null && token.isNotEmpty) {
+    Navigator.pushReplacementNamed(context, '/home');
+  } else if (isSkipped == true) {
+   
+    Navigator.pushReplacementNamed(context, 'NavigationHomePage');
+   Navigator.pushReplacementNamed(context, 'LoginPage');
+  } else {
+    Navigator.pushReplacementNamed(context, 'LoginPage');
+  }
+}
   @override
   void dispose() {
     _controller.dispose();
