@@ -93,8 +93,7 @@ class _EventCardState extends State<EventCard> {
                         shape: BoxShape.circle,
                         color: const Color.fromARGB(174, 255, 255, 255),
                       ),
-                      child: 
-                       BlocConsumer<AddinterestCubit, AddinterestStates>(
+                      child: BlocConsumer<AddinterestCubit, AddinterestStates>(
                                 listener: (context, state) {
                           if (state is AddInterestSuccessState) {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -106,9 +105,7 @@ class _EventCardState extends State<EventCard> {
                               SnackBar(content: Text(state.errorMessage)),
                             );
                           }
-                        },
-
-                      builder: (context, state) {
+                      }, builder: (context, state) {
                           bool isInterested = widget.event.isInterested;
                           return RiveAnimatedIcon(
                             riveIcon: RiveIcon.star,

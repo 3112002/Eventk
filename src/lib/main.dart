@@ -19,6 +19,7 @@ import 'package:eventk/Features/Home/Presentation/Views/homePage.dart';
 import 'package:eventk/Features/Authentication/Presentation/Views/loginPage.dart';
 import 'package:eventk/Features/Authentication/Presentation/Views/signupPage.dart';
 import 'package:eventk/Features/Home/Presentation/Views/orgainzationHome.dart';
+import 'package:eventk/Features/Home/Presentation/Views/widgets/organizationDetalies.dart';
 import 'package:eventk/Features/Home/domain/home_repo.dart';
 import 'package:eventk/Features/InitialScreens/Presentation/Views/widgets/InitialScreen.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/interetedPage.dart';
@@ -92,7 +93,8 @@ class MyApp extends StatelessWidget {
                     service: GetorganizationbyidService(api: Api(dio: Dio()))),
               ),
                BlocProvider(
-        create: (context) => OrganizertofollowCubit(OrganizationrepoImpl())
+        create: (context) =>
+OrganizertofollowCubit(OrganizationrepoImpl())
           ..fetchOrganizationsToFollow(isFollowing: false),
               )
 
@@ -124,6 +126,7 @@ class MyApp extends StatelessWidget {
                 FavouritesPage.id: (context) => FavouritesPage(),
                 ForYouPage.id: (context) => ForYouPage(),
                 OrgainzationHome.id: (context) => OrgainzationHome(),
+                OrganizationDetalies.id: (context) => OrganizationDetalies(),
                 /*
                 Signinrequiredpage.id: (context) {
                   final args = ModalRoute.of(context)!.settings.arguments

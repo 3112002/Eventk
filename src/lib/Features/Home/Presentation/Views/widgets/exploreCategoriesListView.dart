@@ -1,13 +1,12 @@
-import 'package:eventk/Core/widgets/FailureScaffold.dart';
+import 'package:eventk/Core/widgets/customErrorWidgets.dart';
+import 'package:eventk/Core/widgets/customLoadingWidgets.dart';
 import 'package:eventk/Features/Home/Data/model/categoriesModel.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/category_cubit.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/category_state.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/exploreCategories.dart';
-import 'package:eventk/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 /*Yara❤️*/
 
 bool isLoading = false;
@@ -20,33 +19,28 @@ class Explorecategorieslistview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CategoryCubit, CategoryState>(
-        listener: (context, state) {
+    return BlocBuilder<CategoryCubit, CategoryState>(builder: (context, state) {
       if (state is SuccessCategoryState) {
         categories = state.categories;
+        return SizedBox(
+          height: 150.sp,
+          width: double.infinity,
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: categories.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                    padding: EdgeInsets.only(left: 30.w),
+                    child: ExploreCategories(categories: categories[index]));
+              }),
+        );
       } else if (state is LoadingCategoryState) {
-        isLoading = true;
+        return CustomLoadingWidgets();
       } else if (state is FailureCategoryState) {
-        showFailureSnackBar(context, state.errMessage);
-        isLoading = false;
+        return CustomErrorWidgets(errMessage: state.errMessage);
+      } else {
+        return CustomLoadingWidgets();
       }
-    }, builder: (context, state) {
-      return ModalProgressHUD(
-          inAsyncCall: isLoading!,
-          progressIndicator: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(kButtonsColor),
-          ),
-          child: SizedBox(
-            height: 150.sp,
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                      padding: EdgeInsets.only(left: 30.w),
-                      child: ExploreCategories(categories: categories[index]));
-                }),
-          ));
     });
   }
 }
