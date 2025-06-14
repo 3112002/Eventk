@@ -9,6 +9,7 @@ import 'package:eventk/Features/Home/Data/model/get_events_model/item.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/get_events_cubit.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/get_events_state.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/customExcptionWidget.dart';
+import 'package:eventk/Features/Home/Presentation/Views/widgets/eventsNearYouListViewLoadingIndicator.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/showMoreEvents.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/upComingEvents.dart';
 import 'package:eventk/Features/Home/domain/home_repo.dart';
@@ -83,7 +84,7 @@ class UpComingEventsListView extends StatelessWidget {
           } else if (state is FailureGetEventsState) {
             return CustomExcptionWidget();
           } else {
-            return CustomLoadingWidgets();
+            return EventsNearYouListViewLoadingIndicator();
           }
         }));
   }

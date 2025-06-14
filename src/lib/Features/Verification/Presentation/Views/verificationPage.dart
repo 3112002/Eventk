@@ -157,7 +157,7 @@ class _VerificationState extends State<VerificationPage> {
                                 .VerifyEmail(
                                     email:
                                         getIt<CacheHelper>()
-                                            .getData(key: 'verifyEmail'),
+                                            .getData(key: 'forgetEmail'),
                                     otp: getIt<CacheHelper>()
                                         .getData(key: 'otp'));
                           } else {

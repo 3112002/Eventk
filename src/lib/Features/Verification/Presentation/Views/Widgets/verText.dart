@@ -23,8 +23,8 @@ class EmailText extends StatelessWidget {
                     style: Styles.styleText20),
                 Padding(padding: EdgeInsets.only(top: 10.h)),
                 Text(
-                  comeFrom == 'Signup'
-                      ? getIt<CacheHelper>().getData(key: 'email')
+                  comeFrom == 'ForgetPassword'
+                      ? getIt<CacheHelper>().getData(key: 'forgetEmail')
                       : getIt<CacheHelper>().getData(key: 'email'),
                   style: Styles.styleText20,
                 ),

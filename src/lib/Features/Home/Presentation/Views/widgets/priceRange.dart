@@ -11,7 +11,7 @@ class PriceRangeWidget extends StatefulWidget {
 
 class _PriceRangeWidgetState extends State<PriceRangeWidget> {
   double mnValue = 0.0;
-  double mxValue = 1000.0;
+  double mxValue = 10000.0;
   int i = 0;
   RangeValues values = RangeValues(0.0, 1000.0);
   @override
@@ -19,7 +19,7 @@ class _PriceRangeWidgetState extends State<PriceRangeWidget> {
     return SizedBox(
       width: double.infinity,
       child: RangeSlider(
-          divisions: 100,
+          divisions: 200,
           activeColor: Colors.blue,
           inactiveColor: Colors.grey,
           min: mnValue,

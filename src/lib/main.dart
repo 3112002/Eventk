@@ -137,7 +137,7 @@ class MyApp extends StatelessWidget {
                 },
                 */
               },
-              home:InitialScreen(),
+              home: LoginPage(),
               //NavigationHomePage(),
             ));
       },
