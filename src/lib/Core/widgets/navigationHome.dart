@@ -1,5 +1,9 @@
 import 'package:eventk/Core/utils/AuthProvider.dart';
 import 'package:eventk/Core/widgets/SignInRequiredPage.dart';
+import 'package:eventk/Features/Intersted/Presentation/Views/Widgets/intersetAllPage.dart';
+
+
+
 import 'package:eventk/Features/Profille/Presentation/Views/profilePage.dart';
 import 'package:eventk/constants.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/interetedPage.dart';
@@ -23,7 +27,7 @@ class _HomePageState extends State<NavigationHomePage> {
 
   final List<Widget> pages = [
     HomePage(),
-    FavouritesPage(),
+    Intersetallpage(),
     ForYouPage(),
     ProfilePage(),
   ];
@@ -58,12 +62,13 @@ class _HomePageState extends State<NavigationHomePage> {
   ];
   @override
   Widget build(BuildContext context) {
+
     return Consumer<Authprovider>(
       builder: (context, authProvider, _) {
         final List<Widget> pages = [
           HomePage(),
           authProvider.isLoggedIn
-              ? const FavouritesPage()
+              ? const Intersetallpage()
               : const Signinrequiredpage(
                   message:
                       'Interested events will show up here. Sign in to access them.',
@@ -94,6 +99,8 @@ class _HomePageState extends State<NavigationHomePage> {
                   }),
                 ),
               ),
+
+  
             ),
           ),
           backgroundColor: kPrimaryColor,

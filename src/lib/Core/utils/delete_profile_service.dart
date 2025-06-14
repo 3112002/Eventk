@@ -7,14 +7,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DeleteProfileService {
   final Api api;
   final String url = 'http://eventk.runasp.net/api/Profile/delete-profile';
-  
+
   DeleteProfileService({required this.api});
 
   Future<DeleteprofileModel> deleteProfile(String oldPassword) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');
-      
+
       if (token == null) {
         throw CustomExceptions('User not authorized. Please login again.');
       }
@@ -35,7 +35,6 @@ class DeleteProfileService {
       }
 
       if (response['status'] == 'Success') {
-        
         return DeleteprofileModel.fromJson(response);
       } else {
         throw CustomExceptions(

@@ -6,6 +6,6 @@ void showLoginSheet(BuildContext context) {
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    builder: (_) =>  LoginRequiredButtonSheet (),
+    builder: (_) => LoginRequiredButtonSheet(),
   );
 }

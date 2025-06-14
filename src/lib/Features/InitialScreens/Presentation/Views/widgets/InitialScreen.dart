@@ -5,6 +5,7 @@ import 'package:eventk/Features/Authentication/Presentation/Views/loginPage.dart
 import 'package:eventk/Features/InitialScreens/Presentation/Views/widgets/onBoarding1.dart';
 import 'package:eventk/Features/Splash/Presentation/Views/splashScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class InitialScreen extends StatefulWidget {
   const InitialScreen({Key? key}) : super(key: key);
 
@@ -32,15 +33,9 @@ class _InitialScreenState extends State<InitialScreen> {
         MaterialPageRoute(builder: (context) => const Onboarding1()),
       );
     } else if (isLoggedIn) {
-      
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => NavigationHomePage()),
-      );
-      
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
       );
     } else {
       Navigator.pushReplacement(

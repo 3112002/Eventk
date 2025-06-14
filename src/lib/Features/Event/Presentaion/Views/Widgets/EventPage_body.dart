@@ -302,7 +302,7 @@ class _EventpageBodyState extends State<EventpageBody> {
                         child: Padding(
                           padding: EdgeInsets.all(15),
                           child: DateTime.parse(event.endDate).isAfter(DateTime.now())?
-                          event.isPaid
+                          event.isPaid!
                               ? ElevatedButton(
                                   onPressed: () async {
                                     final token = await CacheHelper()

@@ -1,8 +1,13 @@
-
+import 'package:eventk/Core/Services/get_it_services.dart';
+import 'package:eventk/Core/dataBase/Cache/Cache_Helper.dart';
+import 'package:eventk/Features/Authentication/Presentation/Views/loginPage.dart';
+import 'package:eventk/Features/InitialScreens/Presentation/Views/widgets/onBoarding1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:eventk/Core/dataBase/Cache/Cache_Helper.dart'; 
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
+import 'dart:ui';
+// SplashScreen.dart
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -16,23 +21,19 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   void initState() {
     super.initState();
-
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 3),
     );
 
     _positionAnimation = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(-0.2, 0), 
+      begin: const Offset(0, 0),
+      end: Offset(-0.23.w, 0),
     ).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
 
-    _opacityAnimation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(
+    _opacityAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: _controller,
         curve: const Interval(0.5, 1.0, curve: Curves.easeInOut),
@@ -40,25 +41,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     );
 
     _controller.forward();
-
-    Future.delayed(const Duration(seconds: 3), () {
-      navigateUser();
-    });
   }
-void navigateUser() async {
-  final token = await CacheHelper().getDataString(key: 'token');
-  final isSkipped = await CacheHelper().getDataBool(key: 'showSkip');
 
-  if (token != null && token.isNotEmpty) {
-    Navigator.pushReplacementNamed(context, '/home');
-  } else if (isSkipped == true) {
-   
-    Navigator.pushReplacementNamed(context, 'NavigationHomePage');
-   Navigator.pushReplacementNamed(context, 'LoginPage');
-  } else {
-    Navigator.pushReplacementNamed(context, 'LoginPage');
-  }
-}
   @override
   void dispose() {
     _controller.dispose();
@@ -72,15 +56,20 @@ void navigateUser() async {
       body: Center(
         child: Stack(
           children: [
-            SlideTransition(
-              position: _positionAnimation,
-              child: Align(
-                alignment: Alignment.center,
-                child: Image.asset(
-                  'assets/Images/logo_E.png',
-                  width: 300.w,
-                ),
-              ),
+            AnimatedBuilder(
+              animation: _controller,
+              builder: (context, child) {
+                return Transform.translate(
+                  offset: _positionAnimation.value * MediaQuery.of(context).size.width,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      'assets/Images/logo_E.png',
+                      width: 300.w,
+                    ),
+                  ),
+                );
+              },
             ),
             AnimatedBuilder(
               animation: _controller,

@@ -11,7 +11,7 @@ class DeleteProfileSuccessState extends DeleteprofileStates {
   DeleteProfileSuccessState(this.deleteprofilemodel);
 }
 
-class DeleteProfileFailureState extends DeleteprofileStates{
+class DeleteProfileFailureState extends DeleteprofileStates {
   final String errorMessage;
   DeleteProfileFailureState({required this.errorMessage});
 }

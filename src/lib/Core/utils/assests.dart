@@ -9,5 +9,5 @@ abstract class AssestsImages {
   static const profileAvatar = 'assets/Images/profileImage.jpg';
   static const backgroundEvents = 'assets/Images/backgroundImages.jpg';
   static const testImagePopluar = 'assets/Images/testImage.jpeg';
-  static const eventkLogo='assets/Images/EventK.png';
+  static const eventkLogo = 'assets/Images/EventK.png';
 }

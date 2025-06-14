@@ -13,6 +13,4 @@ class OrganizationCubit extends Cubit<OrganizationState> {
         (Failures) => emit(FailureOrganizationState(Failures.errorMessage)),
         (organizationList) => emit(SuccessOrganizationState(organizationList)));
   }
-  
-  
 }

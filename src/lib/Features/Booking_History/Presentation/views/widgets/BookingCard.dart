@@ -72,7 +72,7 @@ class BookingCard extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 10.w), 
+                padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 10.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,

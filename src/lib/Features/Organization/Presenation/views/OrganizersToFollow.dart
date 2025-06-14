@@ -6,6 +6,6 @@ class Organizerstofollow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OrganizerspageBody();  
+    return OrganizerspageBody();
   }
 }

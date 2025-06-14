@@ -6,8 +6,8 @@ import 'package:eventk/Features/Authentication/Presentation/Views/loginPage.dart
 import 'package:eventk/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
-/*Yara❤️*/
 class Onboarding2 extends StatelessWidget {
   const Onboarding2({super.key});
 
@@ -80,7 +80,4 @@ class Onboarding2 extends StatelessWidget {
 );
 }
 }
-
-
-
 

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eventk/Core/utils/assests.dart';
+import 'package:eventk/Core/utils/interset_model/interset_model.dart';
 import 'package:eventk/Core/utils/styles.dart';
 import 'package:eventk/Features/Intersted/Data/models/getInterest_model.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/addInterest_cubit/addInterest_cubit.dart';
@@ -12,7 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:rive_animated_icon/rive_animated_icon.dart';
 
 class EventCard extends StatefulWidget {
-  final EventsModel event;
+  final IntersetModel event;
   const EventCard({super.key, required this.event});
 
   @override
@@ -22,8 +23,10 @@ class EventCard extends StatefulWidget {
 class _EventCardState extends State<EventCard> {
   @override
   Widget build(BuildContext context) {
-    final formattedDate = DateFormat('yyyy-MM-dd – kk:mm')
-        .format(DateTime.parse(widget.event.startDate));
+    final formattedDate = widget.event.startDate != null
+        ? DateFormat('yyyy-MM-dd – HH:mm')
+            .format(widget.event.startDate!.toLocal())
+        : 'Unknown date';
     return Padding(
       padding: EdgeInsets.only(left: 15.w, top: 5.h),
       child: ConstrainedBox(
@@ -47,7 +50,7 @@ class _EventCardState extends State<EventCard> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: NetworkImage(widget.event.eventPicture),
+                        image: NetworkImage(widget.event.eventPicture!),
                       ),
                       borderRadius: BorderRadius.circular(15),
                     ),
@@ -106,7 +109,7 @@ class _EventCardState extends State<EventCard> {
                           );
                         }
                       }, builder: (context, state) {
-                        bool isInterested = widget.event.isInterested;
+                        bool isInterested = widget.event.isInterested!;
                         return RiveAnimatedIcon(
                           riveIcon: RiveIcon.star,
                           width: 12.w,
@@ -118,11 +121,11 @@ class _EventCardState extends State<EventCard> {
                             if (isInterested) {
                               context
                                   .read<DeleteinterestCubit>()
-                                  .deleteInterest(widget.event.eventId);
+                                  .deleteInterest(widget.event.eventId!);
                             } else {
                               context
                                   .read<AddinterestCubit>()
-                                  .addInterest(widget.event.eventId);
+                                  .addInterest(widget.event.eventId!);
                             }
                           },
                           onHover: (value) {},

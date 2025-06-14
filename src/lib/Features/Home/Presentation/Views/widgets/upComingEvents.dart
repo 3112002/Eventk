@@ -23,7 +23,6 @@ class UpComingEvents extends StatefulWidget {
 }
 
 class _UpComingEventsState extends State<UpComingEvents> {
-  
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -50,7 +49,8 @@ class _UpComingEventsState extends State<UpComingEvents> {
                       image: DecorationImage(
                         fit: BoxFit.fill,
                         image: CachedNetworkImageProvider(
-                          widget.item!.eventPicture ?? AssestsImages.testImagePopluar,
+                          widget.item!.eventPicture ??
+                              AssestsImages.testImagePopluar,
                           errorListener: (err) =>
                               Image.asset(AssestsImages.testImagePopluar),
                         ),
@@ -90,7 +90,7 @@ class _UpComingEventsState extends State<UpComingEvents> {
                     ),
                   ),
                 ),
-               Positioned(
+                Positioned(
                   left: 265.w,
                   bottom: 90.h,
                   child: Container(
@@ -150,7 +150,4 @@ class _UpComingEventsState extends State<UpComingEvents> {
       ),
     );
   }
-  
-
 }
-

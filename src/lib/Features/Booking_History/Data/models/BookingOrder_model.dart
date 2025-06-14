@@ -17,7 +17,7 @@ class BookingorderModel {
     return BookingorderModel(
         orderId: json['orderId'],
         paidAt: json['paidAt'],
-        totalAmount:(json['totalAmount'] as num).toDouble(),
+        totalAmount: (json['totalAmount'] as num).toDouble(),
         eventId: json['eventId'],
         eventName: json['eventName'],
         eventPic: json['eventPicture']);

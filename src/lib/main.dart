@@ -122,7 +122,7 @@ class MyApp extends StatelessWidget {
                 DeleteProfile.id: (context) => DeleteProfile(),
                 ChangePassword.id: (context) => ChangePassword(),
                 CategoreDeatlis.id: (context) => CategoreDeatlis(),
-                FavouritesPage.id: (context) => FavouritesPage(),
+                // FavouritesPage.id: (context) => FavouritesPage(),
                 ForYouPage.id: (context) => ForYouPage(),
                 OrgainzationHome.id: (context) => OrgainzationHome(),
                 OrganizationDetalies.id: (context) => OrganizationDetalies(),
