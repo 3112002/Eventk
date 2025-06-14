@@ -24,7 +24,7 @@ class _EventCardState extends State<EventCard> {
   Widget build(BuildContext context) {
     final formattedDate = DateFormat('yyyy-MM-dd – kk:mm')
         .format(DateTime.parse(widget.event.startDate));
-    return  Padding(
+    return Padding(
       padding: EdgeInsets.only(left: 15.w, top: 5.h),
       child: ConstrainedBox(
         constraints: BoxConstraints(
@@ -47,7 +47,7 @@ class _EventCardState extends State<EventCard> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image:NetworkImage(widget.event.eventPicture),
+                        image: NetworkImage(widget.event.eventPicture),
                       ),
                       borderRadius: BorderRadius.circular(15),
                     ),
@@ -75,7 +75,7 @@ class _EventCardState extends State<EventCard> {
                           style: Styles.styleText20,
                         ),
                         Text(
-                           formattedDate,
+                          formattedDate,
                           style:
                               Styles.styleText15.copyWith(color: Colors.blue),
                         ),
@@ -94,49 +94,46 @@ class _EventCardState extends State<EventCard> {
                         color: const Color.fromARGB(174, 255, 255, 255),
                       ),
                       child: BlocConsumer<AddinterestCubit, AddinterestStates>(
-                                listener: (context, state) {
-                          if (state is AddInterestSuccessState) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(state.message.message)),
-                            );
-                          }
-                          if (state is AddInterestErrorState) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(state.errorMessage)),
-                            );
-                          }
-                      }, builder: (context, state) {
-                          bool isInterested = widget.event.isInterested;
-                          return RiveAnimatedIcon(
-                            riveIcon: RiveIcon.star,
-                            width: 12.w,
-                            height: 12.h,
-                            color: Colors.blue,
-                            strokeWidth: 3,
-                            loopAnimation: false,
-                            onTap: () {
-                              if (isInterested) {
-                                context
-                                    .read<DeleteinterestCubit>()
-                                    .deleteInterest(widget.event.eventId);
-                              } else {
-                                context
-                                    .read<AddinterestCubit>()
-                                    .addInterest(widget.event.eventId);
-                              }
-                            },
-                            onHover: (value) {},
+                          listener: (context, state) {
+                        if (state is AddInterestSuccessState) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(state.message.message)),
                           );
-                        })),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        
+                        }
+                        if (state is AddInterestErrorState) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(state.errorMessage)),
+                          );
+                        }
+                      }, builder: (context, state) {
+                        bool isInterested = widget.event.isInterested;
+                        return RiveAnimatedIcon(
+                          riveIcon: RiveIcon.star,
+                          width: 12.w,
+                          height: 12.h,
+                          color: Colors.blue,
+                          strokeWidth: 3,
+                          loopAnimation: false,
+                          onTap: () {
+                            if (isInterested) {
+                              context
+                                  .read<DeleteinterestCubit>()
+                                  .deleteInterest(widget.event.eventId);
+                            } else {
+                              context
+                                  .read<AddinterestCubit>()
+                                  .addInterest(widget.event.eventId);
+                            }
+                          },
+                          onHover: (value) {},
+                        );
+                      })),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
-
-
   }
 }

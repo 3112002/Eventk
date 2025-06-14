@@ -46,7 +46,7 @@ class SeeMoreEventsDetaliesLoadingIndiactor extends StatelessWidget {
                     ),
                     child: Container(
                       height: 20.h,
-                      width: 40.w,
+                      width: MediaQuery.of(context).size.height * 0.2,
                       decoration: BoxDecoration(
                         color: Colors.grey,
                       ),
@@ -61,7 +61,7 @@ class SeeMoreEventsDetaliesLoadingIndiactor extends StatelessWidget {
                     children: [
                       Container(
                         height: 20.h,
-                        width: 40.w,
+                        width: MediaQuery.of(context).size.height * 0.1,
                         decoration: BoxDecoration(
                           color: Colors.grey,
                         ),

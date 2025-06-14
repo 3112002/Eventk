@@ -6,7 +6,9 @@ import 'package:eventk/Features/Event/Presentaion/Views/EventPage.dart';
 import 'package:eventk/Features/Home/Data/model/get_events_model/item.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/get_events_cubit.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/get_events_state.dart';
+import 'package:eventk/Features/Home/Presentation/Views/widgets/exitException.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/seeMoreEventsDetalies.dart';
+import 'package:eventk/Features/Home/Presentation/Views/widgets/seeMoreEventsDetaliesListViewLoadingIndicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -47,7 +49,7 @@ class _SeeMoreEventsListViewState extends State<SeeMoreEventsListView> {
   void initState() {
     super.initState();
 
-    if (currentPage == 1) {
+    if (currentPage == 0) {
       BlocProvider.of<GetEventsCubit>(context)
           .GetEvents(widget.endPoint!, currentPage++);
     }
@@ -79,7 +81,14 @@ class _SeeMoreEventsListViewState extends State<SeeMoreEventsListView> {
     return BlocConsumer<GetEventsCubit, GetEventsState>(
       listener: (context, state) {
         if (state is SuccessGetEventsState) {
-          items.addAll(state.events.items);
+          final newItems = state.events.items
+              .where((newItem) =>
+                  !items.any((existing) => existing.eventId == newItem.eventId))
+              .toList();
+
+          items.addAll(newItems);
+        } else if (state is FailureGetEventsState) {
+          isLoading = false;
         }
       },
       builder: (context, state) {
@@ -91,25 +100,24 @@ class _SeeMoreEventsListViewState extends State<SeeMoreEventsListView> {
               controller: scrollController,
               itemCount: items.length,
               itemBuilder: (context, index) {
-                
                 return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => EventDetailsPage(
-                                        eventId: items[index].eventId,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: SeeMoreEventsDetalies(item: items[index]));
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => EventDetailsPage(
+                            eventId: items[index].eventId,
+                          ),
+                        ),
+                      );
+                    },
+                    child: SeeMoreEventsDetalies(item: items[index]));
                 // SeeMoreEventsDetalies(item: items[index]);
               });
         } else if (state is FailureGetEventsState) {
-          return CustomErrorWidgets(errMessage: state.errMessage);
+          return Error404Screen();
         } else {
-          return CustomLoadingWidgets();
+          return Seemoreeventsdetalieslistviewloadingindicator();
         }
       },
     );

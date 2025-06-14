@@ -185,11 +185,13 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                   String endPoint = '?';
                   List<String> params = [];
 
-                  var categoryId =
+                  final categoryId =
                       getIt<CacheHelper>().getData(key: "categoryId");
 
                   final from = getIt<CacheHelper>().getData(key: 'fromDate');
                   final to = getIt<CacheHelper>().getData(key: 'toDate');
+                  final isPaid = getIt<CacheHelper>().getData(key: 'isPaid');
+                  final radius = getIt<CacheHelper>().getData(key: 'Radius');
                   if (categoryId != null && categoryId.toString().isNotEmpty) {
                     params.add('CategoryId=$categoryId');
                   }
@@ -198,8 +200,23 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                     params.add('fromDate=$from');
                     params.add('toDate=$to');
                   }
+                  if (isPaid != null && isPaid.toString().isNotEmpty) {
+                    params.add('IsPaid=$isPaid');
+                    if (isPaid == true) {
+                      final minPrice =
+                          getIt<CacheHelper>().getData(key: 'minPrice');
+                      final maxPrice =
+                          getIt<CacheHelper>().getData(key: 'maxPrice');
+                      params.add('MinPrice=$minPrice');
+                      params.add('MaxPrice=$maxPrice');
+                    }
+                  }
+                  if (radius != null && radius.toString().isNotEmpty) {
+                    int intRadius = (radius as double).toInt();
+                    params.add('Radius=$intRadius');
+                  }
                   if (params.isNotEmpty) {
-                    endPoint = params.join('&');
+                    endPoint = '?' + params.join('&');
                   }
 
                   getIt<CacheHelper>()
@@ -207,6 +224,11 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                   getIt<CacheHelper>().removeData(key: 'categoryId');
                   getIt<CacheHelper>().removeData(key: 'fromDate');
                   getIt<CacheHelper>().removeData(key: 'toDate');
+                  getIt<CacheHelper>().removeData(key: 'isPaid');
+                  getIt<CacheHelper>().removeData(key: 'minPrice');
+                  getIt<CacheHelper>().removeData(key: 'maxPrice');
+                  getIt<CacheHelper>().removeData(key: 'Radius');
+                  selectedDate = null;
                   Navigator.pop(context, endPoint);
                 },
                 child: Text('Apply'),

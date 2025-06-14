@@ -90,7 +90,6 @@ class PaidOrdersTab extends StatelessWidget {
           if (state is OrderItemLoadingState) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is OrderItemSuccessState) {
-           
             final List<Map<String, dynamic>> individualTickets = [];
             for (var item in state.orders) {
               if (!item.isRefunded) {
@@ -164,7 +163,7 @@ class PaidOrdersTab extends StatelessWidget {
                                     [
                                   {
                                     "orderItemId": ticketData["orderItemId"],
-                                    "quantity": 1, 
+                                    "quantity": 1,
                                   },
                                 ];
                                 parentContext.read<RefundCubit>().requesrRefund(

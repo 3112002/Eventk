@@ -92,12 +92,11 @@ class MyApp extends StatelessWidget {
                 create: (context) => GetorganizationidCubit(
                     service: GetorganizationbyidService(api: Api(dio: Dio()))),
               ),
-               BlocProvider(
-        create: (context) =>
-OrganizertofollowCubit(OrganizationrepoImpl())
-          ..fetchOrganizationsToFollow(isFollowing: false),
+              BlocProvider(
+                create: (context) =>
+                    OrganizertofollowCubit(OrganizationrepoImpl())
+                      ..fetchOrganizationsToFollow(isFollowing: false),
               )
-
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
@@ -138,7 +137,7 @@ OrganizertofollowCubit(OrganizationrepoImpl())
                 },
                 */
               },
-              home: InitialScreen()
+              home: LoginPage(),
               //NavigationHomePage(),
             ));
       },

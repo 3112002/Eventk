@@ -7,6 +7,7 @@ import 'package:eventk/Features/Home/Presentation/Manager/organization_cubit.dar
 import 'package:eventk/Features/Home/Presentation/Manager/organization_state.dart';
 import 'package:eventk/Features/Home/Presentation/Views/orgainzationHome.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/organization.dart';
+import 'package:eventk/Features/Home/Presentation/Views/widgets/organizationDetalies.dart';
 import 'package:eventk/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,8 +38,8 @@ class OrganizationListView extends StatelessWidget {
                   return Padding(
                     padding: EdgeInsets.only(top: 20),
                     child: GestureDetector(
-                    child: Organization(
-                      organizationss: displayedList[index],
+                      child: Organization(
+                        organizationss: displayedList[index],
                       ),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
