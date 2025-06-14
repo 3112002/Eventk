@@ -1,6 +1,8 @@
 
 import 'package:eventk/Core/widgets/EventWidget.dart';
+import 'package:eventk/Core/widgets/searchTextField.dart';
 import 'package:eventk/Features/Event/Presentaion/Views/EventPage.dart';
+import 'package:eventk/Features/Home/Presentation/Views/allEventsPage.dart';
 import 'package:eventk/Features/Search/Presentation/Views/searchPage.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +46,7 @@ class _NointerestedeventwidgetState extends State<Nointerestedeventwidget> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SearchPage()),
+                    MaterialPageRoute(builder: (context) =>  AllEventsPage(endPoint: '',)),
                   );
                 },
                 style: ElevatedButton.styleFrom(

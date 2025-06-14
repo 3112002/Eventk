@@ -20,9 +20,11 @@ class Organizationcard extends StatelessWidget {
             SnackBar(content: Text(state.error)),
           );
         } else if (state is FollowSuccessState) {
+          /*
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
           );
+          */
         }
       },
       builder: (context, state) {

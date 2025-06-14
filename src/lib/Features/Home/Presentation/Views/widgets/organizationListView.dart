@@ -36,8 +36,14 @@ class OrganizationListView extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(top: 20),
+                    child: GestureDetector(
                     child: Organization(
                       organizationss: displayedList[index],
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => OrganizationDetalies()));
+                      },
                     ),
                   );
                 },

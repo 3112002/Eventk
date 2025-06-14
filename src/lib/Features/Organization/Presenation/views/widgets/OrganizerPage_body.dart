@@ -133,76 +133,76 @@ class _OrganizerpageBodyState extends State<OrganizerpageBody> {
                         ],
                       ),
                     ),
+                   
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: SizedBox(
-                      width: 150.w,
-                      child: BlocBuilder<FollowUnfollowCubit, FollowStates>(
-                        builder: (context, followState) {
-                          final isLoading = followState is FollowLoadingState &&
-                              followState.orgId == widget.organizationId;
+  padding: EdgeInsets.symmetric(horizontal: 20.w),
+  child: SizedBox(
+    width: 150.w,
+    child: BlocBuilder<FollowUnfollowCubit, FollowStates>(
+      builder: (context, followState) {
+        final isLoading = followState is FollowLoadingState &&
+            followState.orgId == widget.organizationId;
 
-                          return ElevatedButton(
-                            onPressed: isLoading
-                                ? null
-                                : () async {
-                                    final followCubit =
-                                        context.read<FollowUnfollowCubit>();
-                                    final orgCubit =
-                                        context.read<OrganizertofollowCubit>();
+        return ElevatedButton(
+          onPressed: isLoading
+              ? null
+              : () async {
+                  print('Button pressed');
+                  final followCubit = context.read<FollowUnfollowCubit>();
+                  final orgCubit = context.read<OrganizertofollowCubit>();
 
-                                    if (organization.isFollowed!) {
-                                      await followCubit.unfollowOrganization(
-                                          organization.organizationId!);
-                                    } else {
-                                      await followCubit.followOrganization(
-                                          organization.organizationId!);
-                                    }
+                  final isCurrentlyFollowed = organization.isFollowed ?? false;
 
-                                    await context
-                                        .read<GetorganizationidCubit>()
-                                        .fetchOrganizationById(
-                                          organizationId: widget.organizationId,
-                                        );
-                                    await orgCubit.fetchOrganizationsToFollow(
-                                        isFollowing: true);
-                                    await orgCubit.fetchOrganizationsToFollow(
-                                        isFollowing: false);
-                                  },
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: Size(90.w, 30.h),
-                              backgroundColor: organization.isFollowed == true
-                                  ? Colors.grey[300]
-                                  : Colors.blueAccent,
-                              foregroundColor: organization.isFollowed == true
-                                  ? Colors.black54
-                                  : Colors.white,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 18.w, vertical: 10.h),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.r),
-                              ),
-                              elevation: 3,
-                            ),
-                            child: isLoading
-                                ? SizedBox(
-                                    width: 18,
-                                    height: 18,
-                                    child: CircularProgressIndicator(
-                                        strokeWidth: 2, color: Colors.white),
-                                  )
-                                : Text(
-                                    organization.isFollowed == true
-                                        ? 'Following'
-                                        : 'Follow',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w500),
-                                  ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
+                  if (isCurrentlyFollowed) {
+                    await followCubit.unfollowOrganization(organization.organizationId);
+                    orgCubit.updateOrganizationFollowStatus(
+                      organization.organizationId,
+                      false,
+                    );
+                  } else {
+                    await followCubit.followOrganization(organization.organizationId);
+                    orgCubit.updateOrganizationFollowStatus(
+                      organization.organizationId,
+                      true,
+                    );
+                  }
+
+                  // Optional: refresh detailed info
+                  await context.read<GetorganizationidCubit>().fetchOrganizationById(
+                        organizationId: widget.organizationId,
+                      );
+                },
+          style: ElevatedButton.styleFrom(
+            minimumSize: Size(90.w, 30.h),
+            backgroundColor: organization.isFollowed == true
+                ? Colors.grey[300]
+                : Colors.blueAccent,
+            foregroundColor: organization.isFollowed == true
+                ? Colors.black54
+                : Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            elevation: 3,
+          ),
+          child: isLoading
+              ? SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: CircularProgressIndicator(
+                      strokeWidth: 2, color: Colors.white),
+                )
+              : Text(
+                  organization.isFollowed == true ? 'Following' : 'Follow',
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+        );
+      },
+    ),
+  ),
+),
+
                   SizedBox(height: 20.h),
                   const TabBar(
                     labelColor: Colors.blueAccent,

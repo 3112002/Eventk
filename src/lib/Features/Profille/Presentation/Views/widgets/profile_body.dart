@@ -6,6 +6,7 @@ import 'package:eventk/Core/widgets/showLoginSheet.dart';
 import 'package:eventk/Features/Authentication/Presentation/Views/loginPage.dart';
 import 'package:eventk/Features/Booking_History/Presentation/views/BookingHistoryPage.dart';
 import 'package:eventk/Features/Organization/Presenation/views/OrganizersToFollow.dart';
+import 'package:eventk/Features/Profille/Presentation/Views/SupportPage.dart';
 import 'package:eventk/Features/Profille/Presentation/Views/changePassword.dart';
 import 'package:eventk/Features/Profille/Presentation/Views/deleteProfile.dart';
 import 'package:eventk/Features/Profille/Presentation/Views/editProfilePage.dart';
@@ -179,8 +180,6 @@ class _ProfileBodyState extends State<ProfileBody> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => Organizerstofollow()));
-
-
                             }else{
                               showLoginSheet(context);
                             }
@@ -199,10 +198,14 @@ class _ProfileBodyState extends State<ProfileBody> {
                             }
                           }),
                       ProfileListtile(
-                          icon: Icons.note_outlined,
-                          text: "Terms & Conditions",
+                          icon: Icons.support_agent_rounded,
+                          text: "Support",
                           onTap: () {
                             if(profile!=null){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SupportPage()));
 
                             }else{
                               showLoginSheet(context);
@@ -222,17 +225,23 @@ class _ProfileBodyState extends State<ProfileBody> {
                                 MaterialPageRoute(
                                     builder: (context) => DeleteProfile()));
                             }else{
-                              showLoginSheet(context);
+                              showLoginSheet(context); 
                             }
                           }),
                       ProfileListtile(
-                          icon: Icons.logout,
-                          text: "Logout",
+                         // icon: Icons.logout,
+                          //text: "Logout",
+                          icon: profile != null ? Icons.logout : Icons.login,
+                          text: profile != null ? "Logout" : "Sign in",
                           onTap: () {
                             if(profile!=null){
                             showLogoutDialog(context);
                             }else{
-                              showLoginSheet(context);
+                              Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginPage()),
+      );
+                              
                             }
                           }),
                       SizedBox(

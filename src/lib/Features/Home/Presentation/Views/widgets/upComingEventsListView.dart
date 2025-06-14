@@ -3,11 +3,11 @@ import 'package:eventk/Core/dataBase/Cache/Cache_Helper.dart';
 import 'package:eventk/Core/utils/styles.dart';
 import 'package:eventk/Core/widgets/customErrorWidgets.dart';
 import 'package:eventk/Core/widgets/customLoadingWidgets.dart';
+import 'package:eventk/Features/Event/Presentaion/Views/EventPage.dart';
 import 'package:eventk/Features/Home/Data/model/get_events_model/get_events_model.dart';
 import 'package:eventk/Features/Home/Data/model/get_events_model/item.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/get_events_cubit.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/get_events_state.dart';
-import 'package:eventk/Features/Home/Presentation/Views/widgets/eventsNearYouListViewLoadingIndicator.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/showMoreEvents.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/upComingEvents.dart';
 import 'package:eventk/Features/Home/domain/home_repo.dart';
@@ -56,7 +56,18 @@ class UpComingEventsListView extends StatelessWidget {
                           itemCount: items.length + 1,
                           itemBuilder: (context, index) {
                             if (index < items.length) {
-                              return UpComingEvents(item: items[index]);
+                              return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => EventDetailsPage(
+                                          eventId: items[index].eventId,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: UpComingEvents(item: items[index]));
                             } else {
                               return ShowMoreEvents(
                                   endPoint: endPoint, name: name);
@@ -70,7 +81,7 @@ class UpComingEventsListView extends StatelessWidget {
           } else if (state is FailureGetEventsState) {
             return CustomErrorWidgets(errMessage: state.errMessage);
           } else {
-            return EventsNearYouListViewLoadingIndicator();
+            return CustomLoadingWidgets();
           }
         }));
   }

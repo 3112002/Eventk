@@ -90,7 +90,7 @@ class _UpComingEventsState extends State<UpComingEvents> {
                     ),
                   ),
                 ),
-                Positioned(
+               Positioned(
                   left: 265.w,
                   bottom: 90.h,
                   child: Container(
@@ -100,56 +100,46 @@ class _UpComingEventsState extends State<UpComingEvents> {
                         shape: BoxShape.circle,
                         color: const Color.fromARGB(174, 255, 255, 255),
                       ),
-                      child:  BlocConsumer<AddinterestCubit, AddinterestStates>(
+                      child: BlocConsumer<AddinterestCubit, AddinterestStates>(
                           listener: (context, state) {
-                            
                         if (state is AddInterestSuccessState) {
+                          /*
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(state.message.message)),
                           );
-                        }else if(state is AddInterestUnAuthorizedState){
+                          */
+                        } else if (state is AddInterestUnAuthorizedState) {
                           showLoginSheet(context);
-                        }
-                        
-                        else if (state is AddInterestErrorState) {
+                        } else if (state is AddInterestErrorState) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(state.errorMessage)),
                           );
                         }
-                        
                       }, builder: (context, state) {
                         bool? isInterested = widget.item.isInterested;
-                        return RiveAnimatedIcon(
-                          riveIcon: RiveIcon.star,
-                          width: 12.w,
-                          height: 12.h,
-                          color:  widget.item.isInterested == true ? Color(0xFFFFD700): Colors.blue, 
-                          strokeWidth: 3,
-                          loopAnimation: false,
-                          onTap: () async {
+                        return IconButton(
+                          icon: widget.item.isInterested == true
+                              ? Icon(Icons.star)
+                              : Icon(Icons.star_border_outlined),
+                          color: Colors.blue,
+                          onPressed: () async {
                             if (isInterested == null) {
-                              showLoginSheet(context);                              
+                              showLoginSheet(context);
                               return;
                             }
-                                 if (isInterested) {
+                            if (isInterested) {
                               await context
                                   .read<DeleteinterestCubit>()
                                   .deleteInterest(widget.item.eventId);
-                                  setState(() {
-      widget.item.isInterested = false;
-    });
+                              setState(() {
+                                widget.item.isInterested = false;
+                              });
                             } else {
                               await context
                                   .read<AddinterestCubit>()
                                   .addInterest(widget.item.eventId);
                             }
-
-                            setState(() {
-                              widget.item.isInterested = !isInterested!;
-                            });
-                            
                           },
-                          onHover: (value) {},
                         );
                       })),
                 ),

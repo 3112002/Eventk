@@ -3,12 +3,12 @@ import 'package:eventk/Core/Services/get_it_services.dart';
 import 'package:eventk/Core/utils/get_events_service.dart';
 import 'package:eventk/Core/widgets/customErrorWidgets.dart';
 import 'package:eventk/Core/widgets/customLoadingWidgets.dart';
+import 'package:eventk/Features/Event/Presentaion/Views/EventPage.dart';
 import 'package:eventk/Features/Home/Data/model/get_events_model/get_events_model.dart';
 import 'package:eventk/Features/Home/Data/model/get_events_model/item.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/get_events_cubit.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/get_events_state.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/eventsNearYouListViewLoadingIndicator.dart';
-import 'package:eventk/Features/Home/Presentation/Views/widgets/exitException.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/popularEvents.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/showMoreEvents.dart';
 import 'package:eventk/Features/Home/domain/home_repo.dart';
@@ -37,9 +37,19 @@ class Populareventslistview extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       if (index < 5) {
-                        return PopularEvents(
-                          item: items[index],
-                        );
+                        return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => EventDetailsPage(
+                                        eventId: items[index].eventId,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: PopularEvents(item: items[index]));
+                       
                       } else {
                         return ShowMoreEvents(
                           endPoint: '',
@@ -48,7 +58,7 @@ class Populareventslistview extends StatelessWidget {
                     }),
               );
             } else if (state is FailureGetEventsState) {
-              return Text('');
+              return CustomErrorWidgets(errMessage: state.errMessage);
             } else {
               return EventsNearYouListViewLoadingIndicator();
             }

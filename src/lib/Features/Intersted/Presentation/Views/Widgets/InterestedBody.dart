@@ -65,6 +65,7 @@ class Interestedbody extends StatelessWidget {
                   if (state is GetInterestLoadingState) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is GetInterestLoadedState) {
+                    
                     final now = DateTime.now();
                     final upcomingEvents = state.interests.where((event) {
                       final date = DateTime.parse(event.startDate);

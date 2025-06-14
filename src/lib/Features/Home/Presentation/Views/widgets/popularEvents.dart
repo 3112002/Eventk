@@ -104,9 +104,11 @@ class _PopularEventsState extends State<PopularEvents> {
                       child: BlocConsumer<AddinterestCubit, AddinterestStates>(
                           listener: (context, state) {
                         if (state is AddInterestSuccessState) {
+                          /*
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(state.message.message)),
                           );
+                          */
                         } else if (state is AddInterestUnAuthorizedState) {
                           showLoginSheet(context);
                         } else if (state is AddInterestErrorState) {

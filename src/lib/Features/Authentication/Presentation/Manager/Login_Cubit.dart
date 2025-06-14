@@ -19,6 +19,7 @@ class LoginCubit extends Cubit<LoginState> {
         emit(SuccessLoginState(loginModel));
         await getIt<CacheHelper>()
             .saveData(key: 'token', value: loginModel!.token);
+            await getIt<CacheHelper>().saveData(key: 'isLoggedIn', value: true);
         String t = getIt<CacheHelper>().getData(key: 'token') ?? '';
         print(t);
       },

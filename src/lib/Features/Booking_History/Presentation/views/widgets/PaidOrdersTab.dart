@@ -90,29 +90,39 @@ class PaidOrdersTab extends StatelessWidget {
           if (state is OrderItemLoadingState) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is OrderItemSuccessState) {
-            final paidOrders = state.orders
-                .where((order) => order.isRefunded == false)
-                .toList();
+           
+            final List<Map<String, dynamic>> individualTickets = [];
+            for (var item in state.orders) {
+              if (!item.isRefunded) {
+                for (var ticket in item.tickets) {
+                  individualTickets.add({
+                    "ticketTypeName": item.ticketTypeName,
+                    "ticketTypeDetails": item.ticketTypeDetails,
+                    "unitPrice": item.unitPrice,
+                    "ticket": ticket,
+                    "orderItemId": item.orderItemId,
+                  });
+                }
+              }
+            }
 
-            if (paidOrders.isEmpty) {
-              return const Center(child: Text("No paid orders yet."));
+            if (individualTickets.isEmpty) {
+              return const Center(child: Text("No paid tickets yet."));
             }
             return ListView.builder(
-                itemCount: paidOrders.length,
+                itemCount: individualTickets.length,
                 itemBuilder: (context, index) {
-                  final item = paidOrders[index];
+                  final ticketData = individualTickets[index];
+                  final ticket = ticketData["ticket"];
                   return OrderCard(
-                    ticketTypeName: item.ticketTypeName,
-                    ticketTypeDetails: item.ticketTypeDetails,
-                    quantity: item.quantity,
-                    unitPrice: item.unitPrice,
-                    tickets: item.tickets
-                        .map((t) => {
-                              'code': t.code,
-                              'status': t.status,
-                            })
-                        .toList(),
-                    isRefunded: item.isRefunded,
+                    ticketTypeName: ticketData["ticketTypeName"],
+                    ticketTypeDetails: ticketData["ticketTypeDetails"],
+                    quantity: 1,
+                    unitPrice: ticketData["unitPrice"],
+                    tickets: [
+                      {'code': ticket.code, 'status': ticket.status}
+                    ],
+                    isRefunded: ticket.status == "refunded",
                     onRefundPressed: () {
                       final parentContext = context;
 
@@ -128,7 +138,7 @@ class PaidOrdersTab extends StatelessWidget {
                             ),
                           ),
                           content: Text(
-                            'Refund ${item.quantity} tickets of ${item.ticketTypeName}?',
+                            'Refund this ticket of ${ticketData["ticketTypeName"]}?',
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.grey[800],
@@ -153,8 +163,8 @@ class PaidOrdersTab extends StatelessWidget {
                                 final List<Map<String, dynamic>> itemsToRefund =
                                     [
                                   {
-                                    "orderItemId": item.orderItemId,
-                                    "quantity": item.quantity,
+                                    "orderItemId": ticketData["orderItemId"],
+                                    "quantity": 1, 
                                   },
                                 ];
                                 parentContext.read<RefundCubit>().requesrRefund(
