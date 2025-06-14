@@ -4,6 +4,7 @@ import 'package:eventk/Features/Home/Data/model/categoriesModel.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/category_cubit.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/category_state.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/exploreCategories.dart';
+import 'package:eventk/Features/Home/Presentation/Views/widgets/explorecategorieslistviewLoadingIndicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,11 +36,11 @@ class Explorecategorieslistview extends StatelessWidget {
               }),
         );
       } else if (state is LoadingCategoryState) {
-        return CustomLoadingWidgets();
+        return ExplorecategorieslistviewLoadingIndicator();
       } else if (state is FailureCategoryState) {
         return CustomErrorWidgets(errMessage: state.errMessage);
       } else {
-        return CustomLoadingWidgets();
+        return ExplorecategorieslistviewLoadingIndicator();
       }
     });
   }

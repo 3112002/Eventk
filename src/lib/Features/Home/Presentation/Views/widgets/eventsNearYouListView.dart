@@ -110,8 +110,8 @@ class _EventsNearYouListViewState extends State<EventsNearYouListView> {
 
                   context.read<GetEventsCubit>().GetEvents(endPoint, 0);
                 } catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Error fetching location: $e')));
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text('')));
                 }
               },
               child: const Text("Get Current Location"),

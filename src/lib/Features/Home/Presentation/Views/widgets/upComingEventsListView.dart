@@ -8,6 +8,7 @@ import 'package:eventk/Features/Home/Data/model/get_events_model/get_events_mode
 import 'package:eventk/Features/Home/Data/model/get_events_model/item.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/get_events_cubit.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/get_events_state.dart';
+import 'package:eventk/Features/Home/Presentation/Views/widgets/customExcptionWidget.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/showMoreEvents.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/upComingEvents.dart';
 import 'package:eventk/Features/Home/domain/home_repo.dart';
@@ -15,6 +16,7 @@ import 'package:eventk/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 /*Yara❤️*/
 
 class UpComingEventsListView extends StatelessWidget {
@@ -27,7 +29,7 @@ class UpComingEventsListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //2026-02-02T12:05:53.2894461
-    String endPoint = '?FromDate=${fromDate}&ToDate=${toDate}';
+    String endPoint = 'FromDate=${fromDate}&ToDate=${toDate}';
     return BlocProvider(
         create: (context) =>
             GetEventsCubit(getIt<HomeRepo>())..GetEvents(endPoint, 0),
@@ -79,7 +81,7 @@ class UpComingEventsListView extends StatelessWidget {
               );
             }
           } else if (state is FailureGetEventsState) {
-            return CustomErrorWidgets(errMessage: state.errMessage);
+            return CustomExcptionWidget();
           } else {
             return CustomLoadingWidgets();
           }

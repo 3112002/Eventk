@@ -182,7 +182,7 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                       MaterialStateProperty.all<Color>(Colors.white),
                 ),
                 onPressed: () {
-                  String endPoint = '?';
+                  String endPoint = '';
                   List<String> params = [];
 
                   final categoryId =
@@ -216,7 +216,7 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                     params.add('Radius=$intRadius');
                   }
                   if (params.isNotEmpty) {
-                    endPoint = '?' + params.join('&');
+                    endPoint = params.join('&');
                   }
 
                   getIt<CacheHelper>()

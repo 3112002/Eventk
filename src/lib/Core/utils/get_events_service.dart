@@ -19,7 +19,6 @@ class GetEventsService {
       if (token != null && token.isNotEmpty) {
         headers['Authorization'] = 'Bearer $token';
       }
-
       Response response = await dio.get(
         EndPoint.baseUrlEvents +
             EndPoint.getEvents +

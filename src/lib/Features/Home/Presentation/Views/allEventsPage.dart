@@ -91,7 +91,7 @@ class _AllEventsPageState extends State<AllEventsPage>
               comeFrom: 'Filter',
               onSearch: (query) {
                 setState(() {
-                  newEndPoint = '?Name=${query}';
+                  newEndPoint = 'Name=${query}';
                 });
               },
             )),
@@ -113,9 +113,9 @@ class _AllEventsPageState extends State<AllEventsPage>
                 indicatorPadding: EdgeInsets.only(bottom: 4.h),
                 indicatorSize: TabBarIndicatorSize.label,
                 isScrollable: true,
-                onTap: (index) {
+                onTap: (index) async {
                   if (index == 0) return;
-                  showFilterSheet(context, index - 1);
+                  await showFilterSheet(context, index - 1);
                   tabController.animateTo(index);
                 },
                 tabs: [
