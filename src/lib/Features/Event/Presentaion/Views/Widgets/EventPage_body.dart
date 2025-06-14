@@ -2,6 +2,7 @@ import 'package:eventk/Core/dataBase/Cache/Cache_Helper.dart';
 import 'package:eventk/Core/utils/AuthProvider.dart';
 import 'package:eventk/Core/utils/assests.dart';
 import 'package:eventk/Core/widgets/showLoginSheet.dart';
+import 'package:eventk/Features/Authentication/Presentation/Views/loginPage.dart';
 import 'package:eventk/Features/Event/Presentaion/Manager/cubits/eventCubit/eventCubit.dart';
 import 'package:eventk/Features/Event/Presentaion/Manager/cubits/eventCubit/event_states';
 import 'package:eventk/Features/Event/Presentaion/Views/Widgets/InfoTile.dart';
@@ -206,7 +207,6 @@ class _EventpageBodyState extends State<EventpageBody> {
                         ),
                       ),
                       //get Location from latitude,....
-
                       (event.latitude != null && event.longitude != null)
                           ? ListTile(
                               onTap: () async {
@@ -301,18 +301,13 @@ class _EventpageBodyState extends State<EventpageBody> {
                       Center(
                         child: Padding(
                           padding: EdgeInsets.all(15),
-                          child: event.isPaid
+                          child: DateTime.parse(event.endDate).isAfter(DateTime.now())?
+                          event.isPaid
                               ? ElevatedButton(
-                                  onPressed: ()async {
-                                    final token = await CacheHelper().getDataString(key: 'token');
-
-                                    /*
-                                    final authProvider =
-                                        Provider.of<Authprovider>(context,
-                                            listen: false);
-                                            */
-                                   // if (authProvider.isLoggedIn) {
-                                   if (token != null && token.isNotEmpty) {
+                                  onPressed: () async {
+                                    final token = await CacheHelper()
+                                        .getDataString(key: 'token');
+                                    if (token != null && token.isNotEmpty) {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -360,7 +355,8 @@ class _EventpageBodyState extends State<EventpageBody> {
                                       fontSize: 16.sp,
                                     ),
                                   ),
-                                ),
+                                )
+                                : SizedBox.shrink(),
                         ),
                       ),
 

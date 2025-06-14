@@ -1,3 +1,5 @@
+import 'package:eventk/Core/widgets/navigationHome.dart';
+import 'package:eventk/Features/Event/Presentaion/Views/Widgets/EventPage_body.dart';
 import 'package:eventk/Features/Payment/Presentation/manager/findTicket_cubit/findTicket_cubit.dart';
 import 'package:eventk/Features/Payment/Presentation/manager/findTicket_cubit/findTicket_states.dart';
 import 'package:eventk/Features/Payment/Presentation/views/widgets/SelectTicketPage_Footer.dart';
@@ -41,12 +43,51 @@ class _TicketselectionpageBodyState extends State<TicketselectionpageBody> {
             letterSpacing: 1.2,
           ),
         ),
-        leading: IconButton(
+        leading: 
+        /*
+        IconButton(
           icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
+        */
+        IconButton(
+  icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
+  onPressed: () {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Exit Confirmation",
+        style: TextStyle(color:Colors.black),
+        ),
+        content: Text("Are you sure you want to exit?",
+        style: TextStyle(
+          color:Colors.grey,
+          fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          TextButton(
+            child: Text("Cancel"),
+            onPressed: () => Navigator.pop(context), 
+          ),
+          TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => NavigationHomePage()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  },
+),
+
       ),
       body: BlocConsumer<FindticketCubit, FindticketStates>(
         listener: (context, state) {

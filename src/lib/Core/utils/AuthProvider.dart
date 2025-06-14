@@ -7,7 +7,13 @@ class Authprovider with ChangeNotifier {
   bool get isLoggedIn => _isLoggedIn;
 
   Authprovider(this.cacheHelper) {
-    _isLoggedIn = cacheHelper.getDataString(key: 'token') != null;
+    _checkLoginStatus();
+  }
+
+  void _checkLoginStatus() async {
+    final token = await cacheHelper.getDataString(key: 'token');
+    _isLoggedIn = token != null && token.isNotEmpty;
+    notifyListeners();
   }
 
   void login(String token) {

@@ -19,7 +19,6 @@ class EventsModel{
       startDate: json['startDate'],
       eventPicture: json['eventPicture'],
       isInterested: json['isInterested'],
-      
        );
   }
 }

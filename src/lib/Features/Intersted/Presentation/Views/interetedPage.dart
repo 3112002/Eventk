@@ -10,6 +10,7 @@ class FavouritesPage extends StatelessWidget {
   static String id = 'InterestedPage';
   const FavouritesPage({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(

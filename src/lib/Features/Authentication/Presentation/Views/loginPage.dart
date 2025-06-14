@@ -1,4 +1,5 @@
 import 'package:eventk/Core/Services/get_it_services.dart';
+import 'package:eventk/Core/utils/AuthProvider.dart';
 import 'package:eventk/Core/utils/assests.dart';
 import 'package:eventk/Core/utils/styles.dart';
 import 'package:eventk/Core/widgets/FailureScaffold.dart';
@@ -19,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
 
 /*Yara Adel*/
 class LoginPage extends StatefulWidget {
@@ -41,12 +43,15 @@ class _LoginPageState extends State<LoginPage> {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is SuccessLoginState) {
-            //Navigate to Home screen
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => NavigationHomePage(),
-                ));
+            final authProvider =
+                Provider.of<Authprovider>(context, listen: false);
+            authProvider.login(state.loginModel.token);
+
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => NavigationHomePage()),
+              (route) => false,
+            );
           } else if (state is FailarLoginState) {
             showFailureSnackBar(context, state.errorMessage);
             isLoading = false;
