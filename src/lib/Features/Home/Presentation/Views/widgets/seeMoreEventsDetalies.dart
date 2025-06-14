@@ -8,9 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:line_icons/line_icon.dart';
 
-/*Yara Adel❤️*/
+/*Yara Adel Mohamed Elsayed❤️*/
 class SeeMoreEventsDetalies extends StatefulWidget {
   const SeeMoreEventsDetalies({super.key, required this.item});
   final Item item;
@@ -60,7 +59,7 @@ class _SeeMoreEventsDetaliesState extends State<SeeMoreEventsDetalies> {
                       maxWidth: MediaQuery.of(context).size.width * 0.5,
                     ),
                     child: Text(
-                      widget.item!.eventName,
+                      widget.item.eventName,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: Styles.styleText20,
@@ -75,10 +74,9 @@ class _SeeMoreEventsDetaliesState extends State<SeeMoreEventsDetalies> {
                     children: [
                       Text(
                         DateFormat('MMM dd, yyyy – hh:mm a')
-                            .format(widget.item!.startDate!),
+                            .format(widget.item.startDate!),
                         style: Styles.styleText12.copyWith(color: Colors.blue),
                       ),
-                      // IconButton(onPressed: () {}, icon: LineIcon.star()),
                       Positioned(
                         left: 265.w,
                         bottom: 90.h,
@@ -87,7 +85,6 @@ class _SeeMoreEventsDetaliesState extends State<SeeMoreEventsDetalies> {
                           height: 35.h,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: const Color.fromARGB(174, 255, 255, 255),
                           ),
                           child:
                               BlocConsumer<AddinterestCubit, AddinterestStates>(
@@ -106,12 +103,11 @@ class _SeeMoreEventsDetaliesState extends State<SeeMoreEventsDetalies> {
                               bool? isInterested = widget.item.isInterested;
 
                               return IconButton(
-                                icon: LineIcon.star(
-                                  size: 20.w,
-                                  color: isInterested == true
-                                      ? Color(0xFFFFD700)
-                                      : Colors.blue,
-                                ),
+                                icon: isInterested == true
+                                    ? Icon(Icons.star)
+                                    : Icon(Icons.star_border_outlined),
+                                iconSize: 30,
+                                color: Colors.blue,
                                 onPressed: () async {
                                   if (isInterested == null) {
                                     showLoginSheet(context);

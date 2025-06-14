@@ -1,6 +1,5 @@
 import 'package:eventk/Core/Services/get_it_services.dart';
-import 'package:eventk/Core/dataBase/Cache/Cache_Helper.dart';
-import 'package:eventk/Core/utils/get_current_position_service.dart';
+
 import 'package:eventk/Core/utils/styles.dart';
 import 'package:eventk/Core/widgets/customErrorWidgets.dart';
 import 'package:eventk/Core/widgets/customLoadingWidgets.dart';
@@ -30,7 +29,7 @@ class _TurnOnLocationState extends State<TurnOnLocation> {
               state is InitialGetLocationState) {
             return Column(
               children: [
-                Padding(padding: EdgeInsets.only(top: 20.h)),
+                Padding(padding: EdgeInsets.only(top: 10.h)),
                 Icon(
                   Icons.location_off,
                   color: Colors.blue,

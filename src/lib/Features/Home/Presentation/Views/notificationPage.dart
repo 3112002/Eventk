@@ -10,6 +10,7 @@ class EmptyNotificationsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -27,21 +28,15 @@ class EmptyNotificationsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                'Empty Notifications',
-                style: Styles.headingText40,
-              ),
-              Padding(padding: EdgeInsets.only(top: 30.h)),
-              Text(
-                "It looks like you don't have any notifications right now. We'll let you know when there's something new.",
-                style: Styles.styleText16,
-              ),
+
               ErrorInfo(
-                title: '',
+                title: 'Empty Notifications',
 
                 // button: you can pass your custom button,
                 btnText: "Check again",
-                press: () {}, description: '',
+                press: () {},
+                description:
+                    "It looks like you don't have any notifications right now. We'll let you know when there's something new.",
               ),
             ],
           ),
@@ -82,11 +77,12 @@ class ErrorInfo extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .headlineSmall!
-                  .copyWith(fontWeight: FontWeight.bold),
+                  .copyWith(fontWeight: FontWeight.bold, color: Colors.black),
             ),
             const SizedBox(height: 16),
             Text(
               description,
+              style: Styles.styleText20,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16 * 2.5),
