@@ -6,6 +6,7 @@ import 'package:eventk/Core/widgets/showLoginSheet.dart';
 import 'package:eventk/Features/Authentication/Presentation/Views/loginPage.dart';
 import 'package:eventk/Features/Booking_History/Presentation/views/BookingHistoryPage.dart';
 import 'package:eventk/Features/Organization/Presenation/views/OrganizersToFollow.dart';
+import 'package:eventk/Features/Profille/Presentation/Views/AbouUs.dart';
 import 'package:eventk/Features/Profille/Presentation/Views/SupportPage.dart';
 import 'package:eventk/Features/Profille/Presentation/Views/changePassword.dart';
 import 'package:eventk/Features/Profille/Presentation/Views/deleteProfile.dart';
@@ -203,7 +204,13 @@ class _ProfileBodyState extends State<ProfileBody> {
                       ProfileListtile(
                           icon: Icons.info_outline,
                           text: "About Us",
-                          onTap: () {}),
+                          onTap: () {
+                            Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AboutUs()));
+                            
+                          }),
                       ProfileListtile(
                           icon: Icons.delete_forever,
                           text: "Delete Profile",
