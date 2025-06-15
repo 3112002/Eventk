@@ -41,13 +41,13 @@ class GetorganizationByIdModel {
         name: json['name'],
         desc: json['description'],
         logo: json['logo'],
-        isFollowed: json['isFollowed'],
-        followersCount: json['followersCount'],
+         isFollowed: json['isFollowed'] ?? false,
+        followersCount: json['followersCount'] ?? 0,
         events: eventList,
-        pageNumber: json['events']['pageNumber'],
-        totalPages: json['events']['totalPages'],
-        hasPreviousPage: json['events']['hasPreviousPage'],
-        hasNextPage: json['events']['hasNextPage'],
+       pageNumber: json['events']['pageNumber'] ?? 1,
+       totalPages: json['events']['totalPages'] ?? 1,
+        hasPreviousPage: json['events']['hasPreviousPage'] ?? false,
+    hasNextPage: json['events']['hasNextPage'] ?? false,
         links: linksList);
   }
 }

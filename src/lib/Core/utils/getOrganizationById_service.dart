@@ -13,15 +13,13 @@ class GetorganizationbyidService {
     int pageSize = 20,
   }) async {
     final token = CacheHelper().getDataString(key: 'token');
-    if (token == null) {
-      throw 'user not authorized';
-    }
+    
     final String url =
         "http://eventk.runasp.net/api/Organization/get-organization/$organizationId";
     try {
       final response = await api.get(
         url: url,
-        token: token,
+        token: token??" ",
         queryParameters: {
           'pageNumber': pageNumber,
           'pageSize': pageSize,

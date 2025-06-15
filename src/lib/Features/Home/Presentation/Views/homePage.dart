@@ -110,16 +110,12 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SliverToBoxAdapter(
-            child: Consumer<Authprovider>(
-              builder: (context, authProvider, _) {
-                return authProvider.isLoggedIn
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: OrganizationListView(),
-                      )
-                    : const SizedBox();
-              },
-            ),
+            child: 
+                 Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: OrganizationListView(),
+                  )
+               
           ),
         ],
       ),

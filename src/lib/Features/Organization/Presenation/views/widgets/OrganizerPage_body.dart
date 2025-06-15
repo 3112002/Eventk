@@ -1,3 +1,5 @@
+import 'package:eventk/Core/dataBase/Cache/Cache_Helper.dart';
+import 'package:eventk/Core/widgets/showLoginSheet.dart';
 import 'package:eventk/Features/Event/Presentaion/Views/EventPage.dart';
 import 'package:eventk/Features/Organization/Presenation/manager/Cubits/follow_unfollow_cubit/follow_unfollow_cubit.dart';
 import 'package:eventk/Features/Organization/Presenation/manager/Cubits/follow_unfollow_cubit/follow_unfollow_states.dart';
@@ -146,6 +148,13 @@ class _OrganizerpageBodyState extends State<OrganizerpageBody> {
                             onPressed: isLoading
                                 ? null
                                 : () async {
+                                    final token = await CacheHelper()
+                                        .getDataString(key: 'token');
+                                    if (token == null || token.isEmpty) {
+                                      showLoginSheet(context);
+                                      return;
+                                    }
+
                                     print('Button pressed');
                                     final followCubit =
                                         context.read<FollowUnfollowCubit>();
@@ -171,7 +180,6 @@ class _OrganizerpageBodyState extends State<OrganizerpageBody> {
                                       );
                                     }
 
-                                    // Optional: refresh detailed info
                                     await context
                                         .read<GetorganizationidCubit>()
                                         .fetchOrganizationById(

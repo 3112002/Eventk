@@ -1,4 +1,5 @@
 
+import 'package:eventk/constants.dart';
 import 'package:flutter/material.dart';
 
 class BulletPoint extends StatelessWidget {
@@ -12,11 +13,11 @@ class BulletPoint extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("• ", style: TextStyle(fontSize: 16,color: Colors.black)),
+          const Text("• ", style: TextStyle(fontSize: 16,color: kButtonsColor)),
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16,color: Colors.black45),
             ),
           ),
         ],
