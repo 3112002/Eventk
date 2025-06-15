@@ -10,19 +10,22 @@ class Getintersetlistviewloadingindicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomFading(
-      child: SizedBox(
-        height: 300.h,
-        child: Row(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: 15,
-                  itemBuilder: (context, index) {
-                    return EventsNearYouLoadingIndicator();
-                  }),
-            ),
-          ],
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10, left: 5),
+        child: SizedBox(
+          height: 300.h,
+          child: Row(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: 15,
+                    itemBuilder: (context, index) {
+                      return EventsNearYouLoadingIndicator();
+                    }),
+              ),
+            ],
+          ),
         ),
       ),
     );

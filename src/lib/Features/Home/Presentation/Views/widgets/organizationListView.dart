@@ -45,9 +45,9 @@ class OrganizationListView extends StatelessWidget {
                       ),
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => OrganizerPage(organizationId: displayedList[index].organizationId)));
-                           
-
+                            builder: (context) => OrganizerPage(
+                                organizationId:
+                                    displayedList[index].organizationId)));
                       },
                     ),
                   );
@@ -61,7 +61,7 @@ class OrganizationListView extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>Organizerstofollow(),
+                          builder: (context) => Organizerstofollow(),
                         ),
                       );
                     },

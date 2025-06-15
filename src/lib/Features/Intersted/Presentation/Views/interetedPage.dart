@@ -33,14 +33,11 @@ class MyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context)=>GetinterestCubit(service: GetInterestService(api: Api(dio: Dio())))
-          ),
-      ],
-      child: Intersetallpage()
-      );
+    return MultiBlocProvider(providers: [
+      BlocProvider(
+          create: (context) => GetinterestCubit(
+              service: GetInterestService(api: Api(dio: Dio())))),
+    ], child: Intersetallpage());
   }
 }
 

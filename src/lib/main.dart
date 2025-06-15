@@ -9,6 +9,7 @@ import 'package:eventk/Core/utils/categories_service.dart';
 import 'package:eventk/Core/utils/deleteInterest_service.dart';
 import 'package:eventk/Core/utils/getOrganizationById_service.dart';
 import 'package:eventk/Core/widgets/navigationHome.dart';
+import 'package:eventk/Features/Foryou/Presentation/Views/Widgets/forYouEventCard.dart';
 import 'package:eventk/Features/Foryou/Presentation/Views/forYouPage.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/category_cubit.dart';
 import 'package:eventk/Features/Home/Presentation/Manager/get_events_cubit.dart';
@@ -126,6 +127,7 @@ class MyApp extends StatelessWidget {
                 ForYouPage.id: (context) => ForYouPage(),
                 OrgainzationHome.id: (context) => OrgainzationHome(),
                 OrganizationDetalies.id: (context) => OrganizationDetalies(),
+
                 /*
                 Signinrequiredpage.id: (context) {
                   final args = ModalRoute.of(context)!.settings.arguments

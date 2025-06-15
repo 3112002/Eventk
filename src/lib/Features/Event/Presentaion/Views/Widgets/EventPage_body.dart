@@ -301,62 +301,65 @@ class _EventpageBodyState extends State<EventpageBody> {
                       Center(
                         child: Padding(
                           padding: EdgeInsets.all(15),
-                          child: DateTime.parse(event.endDate).isAfter(DateTime.now())?
-                          event.isPaid!
-                              ? ElevatedButton(
-                                  onPressed: () async {
-                                    final token = await CacheHelper()
-                                        .getDataString(key: 'token');
-                                    if (token != null && token.isNotEmpty) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  TicketSelectionPage(
-                                                    eventId: widget.eventId,
-                                                  )));
-                                    } else {
-                                      //An error page appear when the user not login
-                                      showLoginSheet(context);
-                                    }
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: kButtonsColor,
-                                    minimumSize:
-                                        const Size(double.infinity, 48),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "Find Tickets",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16.sp,
-                                    ),
-                                  ),
-                                )
-                              : ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: kButtonsColor,
-                                    minimumSize:
-                                        const Size(double.infinity, 48),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "I'am Interested",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16.sp,
-                                    ),
-                                  ),
-                                )
-                                : SizedBox.shrink(),
+                          child: DateTime.parse(event.endDate)
+                                  .isAfter(DateTime.now())
+                              ? event.isPaid!
+                                  ? ElevatedButton(
+                                      onPressed: () async {
+                                        final token = await CacheHelper()
+                                            .getDataString(key: 'token');
+                                        if (token != null && token.isNotEmpty) {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      TicketSelectionPage(
+                                                        eventId: widget.eventId,
+                                                      )));
+                                        } else {
+                                          //An error page appear when the user not login
+                                          showLoginSheet(context);
+                                        }
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: kButtonsColor,
+                                        minimumSize:
+                                            const Size(double.infinity, 48),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        "Find Tickets",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.sp,
+                                        ),
+                                      ),
+                                    )
+                                  : ElevatedButton(
+                                      onPressed: () {},
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: kButtonsColor,
+                                        minimumSize:
+                                            const Size(double.infinity, 48),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        "I'am Interested",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16.sp,
+                                        ),
+                                      ),
+                                    )
+                              : SizedBox.shrink(),
                         ),
                       ),
 

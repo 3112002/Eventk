@@ -1,4 +1,3 @@
-
 import 'package:eventk/Core/widgets/EventWidget.dart';
 import 'package:eventk/Core/widgets/searchTextField.dart';
 import 'package:eventk/Features/Event/Presentaion/Views/EventPage.dart';
@@ -18,7 +17,6 @@ class Nointerestedeventwidget extends StatefulWidget {
 }
 
 class _NointerestedeventwidgetState extends State<Nointerestedeventwidget> {
-
   @override
   Widget build(BuildContext context) {
     return widget.events.isEmpty
@@ -26,6 +24,5 @@ class _NointerestedeventwidgetState extends State<Nointerestedeventwidget> {
         : Intersedlistview(
             events: widget.events,
           );
-
   }
 }

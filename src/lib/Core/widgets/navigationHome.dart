@@ -2,8 +2,6 @@ import 'package:eventk/Core/utils/AuthProvider.dart';
 import 'package:eventk/Core/widgets/SignInRequiredPage.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/Widgets/intersetAllPage.dart';
 
-
-
 import 'package:eventk/Features/Profille/Presentation/Views/profilePage.dart';
 import 'package:eventk/constants.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/interetedPage.dart';
@@ -62,7 +60,6 @@ class _HomePageState extends State<NavigationHomePage> {
   ];
   @override
   Widget build(BuildContext context) {
-
     return Consumer<Authprovider>(
       builder: (context, authProvider, _) {
         final List<Widget> pages = [
@@ -99,8 +96,6 @@ class _HomePageState extends State<NavigationHomePage> {
                   }),
                 ),
               ),
-
-  
             ),
           ),
           backgroundColor: kPrimaryColor,

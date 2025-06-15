@@ -13,20 +13,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       toolbarHeight: 80.h,
       automaticallyImplyLeading: false,
-      flexibleSpace: Image(
-        image: AssetImage(AssestsImages.backgroundEvents),
+      flexibleSpace: Image.asset(
+        AssestsImages.backgroundEvents,
         fit: BoxFit.cover,
       ),
-      title: Padding(
-          padding: EdgeInsets.only(bottom: 60.h),
-          child: Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold,
-            ),
-          )),
+      centerTitle: true,
+      title: Text(
+        '$title',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20.sp,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }

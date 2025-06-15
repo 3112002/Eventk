@@ -6,6 +6,7 @@ import 'package:eventk/Features/InitialScreens/Presentation/Views/widgets/onBoar
 import 'package:eventk/Features/Splash/Presentation/Views/splashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 class InitialScreen extends StatefulWidget {
   const InitialScreen({Key? key}) : super(key: key);
 

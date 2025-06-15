@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:eventk/Core/dataBase/Cache/Cache_Helper.dart';
 
-
 class Skipbutton extends StatelessWidget {
   const Skipbutton({super.key});
 
@@ -19,7 +18,6 @@ class Skipbutton extends StatelessWidget {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setBool('showSkip', true);
           await getIt<CacheHelper>().removeData(key: 'showSkip');
-
 
           Navigator.pushReplacement(
             context,

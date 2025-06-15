@@ -43,8 +43,8 @@ class _TicketselectionpageBodyState extends State<TicketselectionpageBody> {
             letterSpacing: 1.2,
           ),
         ),
-        leading: 
-        /*
+        leading:
+            /*
         IconButton(
           icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
           onPressed: () {
@@ -52,42 +52,44 @@ class _TicketselectionpageBodyState extends State<TicketselectionpageBody> {
           },
         ),
         */
-        IconButton(
-  icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
-  onPressed: () {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text("Exit Confirmation",
-        style: TextStyle(color:Colors.black),
+            IconButton(
+          icon: Icon(Icons.arrow_back_ios_new, color: Colors.white),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text(
+                  "Exit Confirmation",
+                  style: TextStyle(color: Colors.black),
+                ),
+                content: Text(
+                  "Are you sure you want to exit?",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                actions: [
+                  TextButton(
+                    child: Text("Cancel"),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  TextButton(
+                    child: Text("OK"),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NavigationHomePage()),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
         ),
-        content: Text("Are you sure you want to exit?",
-        style: TextStyle(
-          color:Colors.grey,
-          fontWeight: FontWeight.bold,
-          ),
-        ),
-        actions: [
-          TextButton(
-            child: Text("Cancel"),
-            onPressed: () => Navigator.pop(context), 
-          ),
-          TextButton(
-            child: Text("OK"),
-            onPressed: () {
-              Navigator.pop(context);
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => NavigationHomePage()),
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  },
-),
-
       ),
       body: BlocConsumer<FindticketCubit, FindticketStates>(
         listener: (context, state) {

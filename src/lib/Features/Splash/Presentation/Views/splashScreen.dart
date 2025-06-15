@@ -7,13 +7,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'dart:ui';
+
 // SplashScreen.dart
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _positionAnimation;
   late Animation<double> _opacityAnimation;
@@ -60,7 +62,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               animation: _controller,
               builder: (context, child) {
                 return Transform.translate(
-                  offset: _positionAnimation.value * MediaQuery.of(context).size.width,
+                  offset: _positionAnimation.value *
+                      MediaQuery.of(context).size.width,
                   child: Align(
                     alignment: Alignment.center,
                     child: Image.asset(

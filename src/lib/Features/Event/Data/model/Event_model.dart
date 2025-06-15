@@ -8,7 +8,7 @@ class EventDetailsModel {
   final bool isInterested;
   final String organizationName;
   final int organizationId;
-  final bool ?isPaid;
+  final bool? isPaid;
   final double? minPrice;
   final double? maxPrice;
   final double? latitude;
@@ -46,8 +46,12 @@ class EventDetailsModel {
       organizationName: json['organizationName'],
       organizationId: json['organizationId'],
       isPaid: json['isPaid'],
-     minPrice: json['minPrice'] != null ? (json['minPrice'] as num).toDouble() : null,
-    maxPrice: json['maxPrice'] != null ? (json['maxPrice'] as num).toDouble() : null,
+      minPrice: json['minPrice'] != null
+          ? (json['minPrice'] as num).toDouble()
+          : null,
+      maxPrice: json['maxPrice'] != null
+          ? (json['maxPrice'] as num).toDouble()
+          : null,
       latitude: json['latitude'] != null
           ? (json['latitude'] as num).toDouble()
           : null,
