@@ -15,42 +15,34 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 /*Yara Adel Mohamed*/
 class CategoryFilterUI extends StatefulWidget {
   const CategoryFilterUI({super.key, this.initialValue, this.onChanged});
-  final String? initialValue;
-  final ValueChanged<String>? onChanged;
+  final List<int>? initialValue;
+  final ValueChanged<List<int>>? onChanged;
   @override
   State<CategoryFilterUI> createState() => _CategoryFilterUIState();
 }
 
 class _CategoryFilterUIState extends State<CategoryFilterUI> {
-  late String? groupValue;
-  int selectedValue = 0;
+  List<int> selectedCategoryIds = [];
+  List<CategoriesModel> categories = [];
+  bool isLoading = false;
+
   @override
   void initState() {
     super.initState();
+
     if (widget.initialValue != null) {
-      groupValue = widget.initialValue;
+      selectedCategoryIds = List<int>.from(widget.initialValue!);
+    } else {
+      final cachedIds = getIt<CacheHelper>().getData(key: "categoryIds");
+      if (cachedIds != null && cachedIds is List) {
+        selectedCategoryIds = List<int>.from(cachedIds);
+      }
     }
     BlocProvider.of<CategoryCubit>(context).Category();
   }
 
-  List<CategoriesModel> categories = [];
-
-  void onChanged(String? newValue) {
-    if (newValue == null) return;
-    setState(() {
-      groupValue = newValue;
-      // getIt<CacheHelper>().saveData(key: 'selectedDate', value: groupValue);
-    });
-    final cachedId = getIt<CacheHelper>().getData(key: "categoryId");
-    if (cachedId != null) {
-      selectedValue = cachedId as int;
-    }
-    widget.onChanged?.call(newValue);
-  }
-
   @override
   Widget build(BuildContext context) {
-    bool isLoading = false;
     return BlocConsumer<CategoryCubit, CategoryState>(
         listener: (context, state) {
       if (state is SuccessCategoryState) {
@@ -58,6 +50,7 @@ class _CategoryFilterUIState extends State<CategoryFilterUI> {
       } else if (state is LoadingCategoryState) {
         isLoading = true;
       } else if (state is FailureCategoryState) {
+        setState(() => isLoading = false);
         Text('oops, there was an error , try later !');
         isLoading = false;
       }
@@ -71,24 +64,33 @@ class _CategoryFilterUIState extends State<CategoryFilterUI> {
             // scrollDirection: Axis.horizontal,
             itemCount: categories.length,
             itemBuilder: (context, index) {
-              return buildRadio(
+              return buildCheckbox(
                   categories[index].categoryId, categories[index].categoryName);
             }),
       );
     });
   }
 
-  Widget buildRadio(int value, String label) {
+  Widget buildCheckbox(int value, String label) {
+    bool isChecked = selectedCategoryIds.contains(value);
     return Row(
       children: [
-        Radio(
-          groupValue: selectedValue,
-          value: value,
+        Checkbox(
+          value: isChecked,
           activeColor: Colors.blue,
-          onChanged: (newValue) {
+          onChanged: (checked) {
             setState(() {
-              selectedValue = newValue!;
-              getIt<CacheHelper>().saveData(key: "categoryId", value: value);
+              if (checked == true) {
+                selectedCategoryIds.add(value);
+              } else {
+                selectedCategoryIds.remove(value);
+              }
+              getIt<CacheHelper>().saveData(
+                key: "categoryIds",
+                value: selectedCategoryIds,
+              );
+
+              widget.onChanged?.call(selectedCategoryIds);
             });
           },
         ),

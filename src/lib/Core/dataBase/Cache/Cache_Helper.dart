@@ -25,13 +25,26 @@ class CacheHelper {
       return await prefs.setDouble(key, value);
     } else if (value is bool) {
       return await prefs.setBool(key, value);
+    } else if (value is List<int>) {
+      List<String> stringList = value.map((e) => e.toString()).toList();
+      return await prefs.setStringList(key, stringList);
     } else {
       return await prefs.setStringList(key, value);
     }
   }
 
   dynamic getData({required String key}) {
-    return prefs.get(key);
+    var value = prefs.get(key);
+
+    if (value is List<String>) {
+      try {
+        return value.map((e) => int.parse(e)).toList();
+      } catch (e) {
+        return value;
+      }
+    }
+
+    return value;
   }
 
   Future<bool> removeData({required String key}) async {

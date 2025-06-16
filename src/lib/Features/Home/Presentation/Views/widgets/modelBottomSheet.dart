@@ -37,7 +37,7 @@ DateTime? toDate;
 class _ModelBottomSheetState extends State<ModelBottomSheet>
     with TickerProviderStateMixin {
   late TabController tabController;
-  String? selectedCategory;
+  List<int>? selectedCategoryIds;
   String? selectedDate;
   double? selectedDistanceKm;
   double? selectedMinPrice;
@@ -51,7 +51,7 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
       vsync: this,
       initialIndex: widget.selectedIndex ?? 0,
     );
-    selectedCategory = widget.name;
+    selectedCategoryIds = getIt<CacheHelper>().getData(key: 'categoryIds');
     selectedDate = getIt<CacheHelper>().getData(key: 'selectedDate');
     isPaid = getIt<CacheHelper>().getData(key: 'isPaid');
     selectedDistanceKm = getIt<CacheHelper>().getData(key: 'Radius');
@@ -72,7 +72,7 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
 
   void resetState() {
     setState(() {
-      selectedCategory = null;
+      selectedCategoryIds = null;
       selectedDate = null;
       selectedDistanceKm = null;
       selectedMinPrice = null;
@@ -80,7 +80,7 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
 
       fromDate = null;
       toDate = null;
-      getIt<CacheHelper>().removeData(key: 'categoryId');
+      getIt<CacheHelper>().removeData(key: 'categoryIds');
       getIt<CacheHelper>().removeData(key: 'fromDate');
       getIt<CacheHelper>().removeData(key: 'toDate');
       getIt<CacheHelper>().removeData(key: 'isPaid');
@@ -157,7 +157,14 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
         Expanded(
           child: TabBarView(controller: tabController, children: [
             CategoryFilterUI(
-              initialValue: selectedCategory,
+              initialValue: selectedCategoryIds,
+              onChanged: (value) => setState(() {
+                selectedCategoryIds = value;
+                getIt<CacheHelper>().saveData(
+                  key: "categoryIds",
+                  value: selectedCategoryIds,
+                );
+              }),
             ),
             DateFilterUI(
               initialValue: selectedDate,
@@ -232,15 +239,19 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                   String endPoint = '';
                   List<String> params = [];
 
-                  final categoryId =
-                      getIt<CacheHelper>().getData(key: "categoryId");
-
                   final from = getIt<CacheHelper>().getData(key: 'fromDate');
                   final to = getIt<CacheHelper>().getData(key: 'toDate');
                   final isPaid = getIt<CacheHelper>().getData(key: 'isPaid');
                   final radius = getIt<CacheHelper>().getData(key: 'Radius');
-                  if (categoryId != null && categoryId.toString().isNotEmpty) {
-                    params.add('CategoryId=$categoryId');
+                  final categoryIds =
+                      getIt<CacheHelper>().getData(key: "categoryIds");
+
+                  if (categoryIds != null &&
+                      categoryIds is List &&
+                      categoryIds.isNotEmpty) {
+                    for (var id in categoryIds) {
+                      params.add('CategoryId=$id');
+                    }
                   }
 
                   if (from != null && to != null) {
