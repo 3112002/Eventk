@@ -105,20 +105,17 @@ class _EventCardState extends State<EventCard> {
                             : Icon(Icons.star_border_outlined),
                         color: Colors.blue,
                         onPressed: () async {
-                          if (widget.event.isInterested == false) {
-                            BlocProvider.of<AddInitCubit>(context)
-                                .AddInt(eventId: widget.event.eventId!);
-                            setState(() {
-                              widget.event.isInterested = true;
-                              isInt = true;
-                            });
-                          }
-                          if (widget.event.isInterested == true &&
-                              isInt == false) {
+                          if (widget.event.isInterested == true) {
                             BlocProvider.of<DelInitCubit>(context)
                                 .DelInt(eventId: widget.event.eventId!);
                             setState(() {
                               widget.event.isInterested = false;
+                            });
+                          } else {
+                            BlocProvider.of<AddInitCubit>(context)
+                                .AddInt(eventId: widget.event.eventId!);
+                            setState(() {
+                              widget.event.isInterested = true;
                             });
                           }
                         }),

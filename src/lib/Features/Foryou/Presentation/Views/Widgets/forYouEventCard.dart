@@ -7,6 +7,8 @@ import 'package:eventk/Features/Intersted/Data/models/getInterest_model.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/addInterest_cubit/addInterest_cubit.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/addInterest_cubit/addInterest_states.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/deleteInterest_cubit/deleteInterest_cubit.dart';
+import 'package:eventk/Features/Intersted/Presentation/Views/manager2/addInterestCubit/addIniterestCubit.dart';
+import 'package:eventk/Features/Intersted/Presentation/Views/manager2/deleteIntCubit/delIniterestCubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -91,47 +93,33 @@ class _EventCardState extends State<ForYouEventCard> {
                   left: 265.w,
                   bottom: 90.h,
                   child: Container(
-                      width: 35.w,
-                      height: 35.h,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: const Color.fromARGB(174, 255, 255, 255),
-                      ),
-                      child: BlocConsumer<AddinterestCubit, AddinterestStates>(
-                          listener: (context, state) {
-                        if (state is AddInterestSuccessState) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(state.message.message)),
-                          );
-                        }
-                        if (state is AddInterestErrorState) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(state.errorMessage)),
-                          );
-                        }
-                      }, builder: (context, state) {
-                        bool isInterested = widget.event.isInterested!;
-                        return RiveAnimatedIcon(
-                          riveIcon: RiveIcon.star,
-                          width: 12.w,
-                          height: 12.h,
-                          color: Colors.blue,
-                          strokeWidth: 3,
-                          loopAnimation: false,
-                          onTap: () {
-                            if (isInterested) {
-                              context
-                                  .read<DeleteinterestCubit>()
-                                  .deleteInterest(widget.event.eventId!);
-                            } else {
-                              context
-                                  .read<AddinterestCubit>()
-                                  .addInterest(widget.event.eventId!);
-                            }
-                          },
-                          onHover: (value) {},
-                        );
-                      })),
+                    width: 35.w,
+                    height: 35.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const Color.fromARGB(174, 255, 255, 255),
+                    ),
+                    child: IconButton(
+                        icon: widget.event.isInterested == true
+                            ? Icon(Icons.star)
+                            : Icon(Icons.star_border_outlined),
+                        color: Colors.blue,
+                        onPressed: () async {
+                          if (widget.event.isInterested == true) {
+                            BlocProvider.of<DelInitCubit>(context)
+                                .DelInt(eventId: widget.event.eventId!);
+                            setState(() {
+                              widget.event.isInterested = false;
+                            });
+                          } else {
+                            BlocProvider.of<AddInitCubit>(context)
+                                .AddInt(eventId: widget.event.eventId!);
+                            setState(() {
+                              widget.event.isInterested = true;
+                            });
+                          }
+                        }),
+                  ),
                 ),
               ],
             ),

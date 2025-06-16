@@ -95,20 +95,17 @@ class _SeeMoreEventsDetaliesState extends State<SeeMoreEventsDetalies> {
                                   : Icon(Icons.star_border_outlined),
                               color: Colors.blue,
                               onPressed: () async {
-                                if (widget.item.isInterested == false) {
-                                  BlocProvider.of<AddInitCubit>(context)
-                                      .AddInt(eventId: widget.item.eventId);
-                                  setState(() {
-                                    widget.item.isInterested = true;
-                                    isInt = true;
-                                  });
-                                }
-                                if (widget.item.isInterested == true &&
-                                    isInt == false) {
+                                if (widget.item.isInterested == true) {
                                   BlocProvider.of<DelInitCubit>(context)
                                       .DelInt(eventId: widget.item.eventId);
                                   setState(() {
                                     widget.item.isInterested = false;
+                                  });
+                                } else {
+                                  BlocProvider.of<AddInitCubit>(context)
+                                      .AddInt(eventId: widget.item.eventId);
+                                  setState(() {
+                                    widget.item.isInterested = true;
                                   });
                                 }
                               }),
