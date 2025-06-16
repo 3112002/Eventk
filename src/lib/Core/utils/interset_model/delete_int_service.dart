@@ -5,11 +5,10 @@ import 'package:eventk/Core/errors/errorModel.dart';
 import 'package:eventk/Core/errors/exceptions.dart';
 import 'package:eventk/Features/Intersted/Data/Models/addInterestMode.dart';
 
-/*Yara Adel Mohamed*/
-class AddInterestService {
+class DeleteIntService {
   final Dio dio;
-  AddInterestService(this.dio);
-  Future<AddInterestmodel?> addInterest({required int eventId}) async {
+  DeleteIntService(this.dio);
+  Future<AddInterestmodel?> DeleteInt({required int eventId}) async {
     try {
       var token = getIt<CacheHelper>().getData(key: 'token');
       Map<String, String> headers = {
@@ -19,8 +18,8 @@ class AddInterestService {
       if (token != null && token.isNotEmpty) {
         headers['Authorization'] = 'Bearer $token';
       }
-      Response response = await dio.post(
-        'http://eventk.runasp.net/api/Interest/add-interest',
+      Response response = await dio.delete(
+        'http://eventk.runasp.net/api/Interest/delete-interest',
         data: {
           'eventId': eventId,
         },
@@ -29,8 +28,7 @@ class AddInterestService {
           validateStatus: (status) => status! < 500,
         ),
       );
-      AddInterestmodel addInterestmodel =
-          AddInterestmodel.fromJson(response.data);
+      AddInterestmodel addInterestmodel = AddInterestmodel.fromJson(response);
       return addInterestmodel;
       //print();
     } on DioException catch (e) {

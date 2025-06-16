@@ -22,7 +22,7 @@ class Noti extends StatelessWidget {
                         content: NotificationContent(
                       id: 0,
                       channelKey: 'basic key',
-                      title: 'Hello Yoya',
+                      title: 'Eventk',
                       body: 'Test',
                     ));
                   }

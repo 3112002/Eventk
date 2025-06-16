@@ -25,9 +25,12 @@ import 'package:eventk/Features/Home/Presentation/Views/orgainzationHome.dart';
 import 'package:eventk/Features/Home/Presentation/Views/widgets/organizationDetalies.dart';
 import 'package:eventk/Features/Home/domain/home_repo.dart';
 import 'package:eventk/Features/InitialScreens/Presentation/Views/widgets/InitialScreen.dart';
+import 'package:eventk/Features/Intersted/Domain/InterestedRepo.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/interetedPage.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/addInterest_cubit/addInterest_cubit.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/deleteInterest_cubit/deleteInterest_cubit.dart';
+import 'package:eventk/Features/Intersted/Presentation/Views/manager2/addInterestCubit/addIniterestCubit.dart';
+import 'package:eventk/Features/Intersted/Presentation/Views/manager2/deleteIntCubit/delIniterestCubit.dart';
 import 'package:eventk/Features/Organization/Data/repos/OrganizationRepo_Impl.dart';
 import 'package:eventk/Features/Organization/Presenation/manager/Cubits/follow_unfollow_cubit/follow_unfollow_cubit.dart';
 import 'package:eventk/Features/Organization/Presenation/manager/Cubits/getOrganizationId_cubit/getOrganizationId_cubit.dart';
@@ -110,7 +113,11 @@ class MyApp extends StatelessWidget {
                 create: (context) =>
                     OrganizertofollowCubit(OrganizationrepoImpl())
                       ..fetchOrganizationsToFollow(isFollowing: false),
-              )
+              ),
+              BlocProvider(
+                  create: (context) => AddInitCubit(getIt<Interestedrepo>())),
+              BlocProvider(
+                  create: (context) => DelInitCubit(getIt<Interestedrepo>())),
             ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
@@ -152,7 +159,7 @@ class MyApp extends StatelessWidget {
                 },
                 */
               },
-              home: NavigationHomePage(),
+              home: LoginPage(),
               //NavigationHomePage(),
             ));
       },

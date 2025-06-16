@@ -4,6 +4,8 @@ import 'package:eventk/Features/Home/Data/model/get_events_model/item.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/addInterest_cubit/addInterest_cubit.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/addInterest_cubit/addInterest_states.dart';
 import 'package:eventk/Features/Intersted/Presentation/Views/manager/cubits/deleteInterest_cubit/deleteInterest_cubit.dart';
+import 'package:eventk/Features/Intersted/Presentation/Views/manager2/addInterestCubit/addIniterestCubit.dart';
+import 'package:eventk/Features/Intersted/Presentation/Views/manager2/deleteIntCubit/delIniterestCubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +21,7 @@ class SeeMoreEventsDetalies extends StatefulWidget {
 }
 
 class _SeeMoreEventsDetaliesState extends State<SeeMoreEventsDetalies> {
+  bool isInt = false;
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
@@ -86,53 +89,29 @@ class _SeeMoreEventsDetaliesState extends State<SeeMoreEventsDetalies> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                           ),
-                          child:
-                              BlocConsumer<AddinterestCubit, AddinterestStates>(
-                            listener: (context, state) {
-                              if (state is AddInterestSuccessState) {
-                              } else if (state
-                                  is AddInterestUnAuthorizedState) {
-                                showLoginSheet(context);
-                              } else if (state is AddInterestErrorState) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(state.errorMessage)),
-                                );
-                              }
-                            },
-                            builder: (context, state) {
-                              bool? isInterested = widget.item.isInterested;
-
-                              return IconButton(
-                                icon: isInterested == true
-                                    ? Icon(Icons.star)
-                                    : Icon(Icons.star_border_outlined),
-                                iconSize: 30,
-                                color: Colors.blue,
-                                onPressed: () async {
-                                  if (isInterested == null) {
-                                    showLoginSheet(context);
-                                    return;
-                                  }
-
-                                  if (isInterested) {
-                                    await context
-                                        .read<DeleteinterestCubit>()
-                                        .deleteInterest(widget.item.eventId);
-                                    setState(() {
-                                      widget.item.isInterested = false;
-                                    });
-                                  } else {
-                                    await context
-                                        .read<AddinterestCubit>()
-                                        .addInterest(widget.item.eventId);
-                                    setState(() {
-                                      widget.item.isInterested = true;
-                                    });
-                                  }
-                                },
-                              );
-                            },
-                          ),
+                          child: IconButton(
+                              icon: widget.item.isInterested == true
+                                  ? Icon(Icons.star)
+                                  : Icon(Icons.star_border_outlined),
+                              color: Colors.blue,
+                              onPressed: () async {
+                                if (widget.item.isInterested == false) {
+                                  BlocProvider.of<AddInitCubit>(context)
+                                      .AddInt(eventId: widget.item.eventId);
+                                  setState(() {
+                                    widget.item.isInterested = true;
+                                    isInt = true;
+                                  });
+                                }
+                                if (widget.item.isInterested == true &&
+                                    isInt == false) {
+                                  BlocProvider.of<DelInitCubit>(context)
+                                      .DelInt(eventId: widget.item.eventId);
+                                  setState(() {
+                                    widget.item.isInterested = false;
+                                  });
+                                }
+                              }),
                         ),
                       )
                     ],

@@ -5,7 +5,7 @@ class EventDetailsModel {
   final String eventPicture;
   final String startDate;
   final String endDate;
-  final bool isInterested;
+  bool isInterested;
   final String organizationName;
   final int organizationId;
   final bool? isPaid;
