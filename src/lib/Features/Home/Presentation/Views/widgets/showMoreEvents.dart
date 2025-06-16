@@ -1,7 +1,4 @@
-import 'package:eventk/Core/Services/get_it_services.dart';
-import 'package:eventk/Core/dataBase/Cache/Cache_Helper.dart';
 import 'package:eventk/Core/utils/styles.dart';
-import 'package:eventk/Features/Home/Data/model/get_events_model/get_events_model.dart';
 import 'package:eventk/Features/Home/Presentation/Views/allEventsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,9 +7,12 @@ import 'package:line_icons/line_icons.dart';
 
 /*Yara Adel Mohamed❤️*/
 class ShowMoreEvents extends StatelessWidget {
-  const ShowMoreEvents({super.key, this.endPoint, this.name});
+  const ShowMoreEvents(
+      {super.key, this.endPoint, this.name, this.date, this.isPaid});
   final String? endPoint;
   final String? name;
+  final String? date;
+  final bool? isPaid;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,8 +24,10 @@ class ShowMoreEvents extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    AllEventsPage(endPoint: endPoint, name: name),
+                builder: (context) => AllEventsPage(
+                  endPoint: endPoint,
+                  name: name,
+                ),
               ),
             );
           },

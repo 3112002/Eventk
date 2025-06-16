@@ -13,9 +13,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /*Yara Adel Mohamed❤️*/
 class AllEventsPage extends StatefulWidget {
-  const AllEventsPage({super.key, this.endPoint, this.name});
+  const AllEventsPage(
+      {super.key, this.endPoint, this.name, this.date, this.isPaid});
   final String? endPoint;
   final String? name;
+  final String? date;
+  final bool? isPaid;
+
   @override
   State<AllEventsPage> createState() => _AllEventsPageState();
 }
@@ -31,7 +35,7 @@ class _AllEventsPageState extends State<AllEventsPage>
     tabController = TabController(
       length: 5,
       vsync: this,
-    )..addListener(handleTabChange);
+    );
   }
 
   void handleTabChange() {
@@ -61,9 +65,15 @@ class _AllEventsPageState extends State<AllEventsPage>
       builder: (context) {
         return SizedBox(
             height: MediaQuery.of(context).size.height * 0.7,
-            child: ModelBottomSheet(selectedIndex: index, name: widget.name));
+            child: ModelBottomSheet(
+              selectedIndex: index,
+              name: widget.name,
+              date: widget.date,
+              isPaid: widget.isPaid,
+            ));
       },
     );
+
     if (result != null) {
       setState(() {
         newEndPoint = result;
@@ -116,7 +126,7 @@ class _AllEventsPageState extends State<AllEventsPage>
                 onTap: (index) async {
                   if (index == 0) return;
                   await showFilterSheet(context, index - 1);
-                  tabController.animateTo(index);
+                  //  tabController.animateTo(index);
                 },
                 tabs: [
                   Tab(
@@ -129,23 +139,26 @@ class _AllEventsPageState extends State<AllEventsPage>
                 ]),
           ),
           Expanded(
-              child: TabBarView(controller: tabController, children: [
-            SeeMoreEventsListView(
-              endPoint: newEndPoint,
-            ),
-            SeeMoreEventsListView(
-              endPoint: newEndPoint,
-            ),
-            SeeMoreEventsListView(
-              endPoint: newEndPoint,
-            ),
-            SeeMoreEventsListView(
-              endPoint: newEndPoint,
-            ),
-            SeeMoreEventsListView(
-              endPoint: newEndPoint,
-            ),
-          ])),
+              child: TabBarView(
+                  controller: tabController,
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                SeeMoreEventsListView(
+                  endPoint: newEndPoint,
+                ),
+                // SeeMoreEventsListView(
+                //   endPoint: newEndPoint,
+                // ),
+                // SeeMoreEventsListView(
+                //   endPoint: newEndPoint,
+                // ),
+                // SeeMoreEventsListView(
+                //   endPoint: newEndPoint,
+                // ),
+                // SeeMoreEventsListView(
+                //   endPoint: newEndPoint,
+                // ),
+              ])),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:dio/dio.dart';
 import 'package:eventk/Core/dataBase/Cache/Cache_Helper.dart';
 import 'package:eventk/Core/Services/get_it_services.dart';
@@ -8,6 +9,7 @@ import 'package:eventk/Core/utils/addInterest_service.dart';
 import 'package:eventk/Core/utils/categories_service.dart';
 import 'package:eventk/Core/utils/deleteInterest_service.dart';
 import 'package:eventk/Core/utils/getOrganizationById_service.dart';
+import 'package:eventk/Core/utils/notificaion_service.dart';
 import 'package:eventk/Core/widgets/navigationHome.dart';
 import 'package:eventk/Features/Foryou/Presentation/Views/Widgets/forYouEventCard.dart';
 import 'package:eventk/Features/Foryou/Presentation/Views/forYouPage.dart';
@@ -44,6 +46,17 @@ import 'package:provider/provider.dart';
 /*Yara❤️*/
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // await NotificationService().initNotifiaction();
+  AwesomeNotifications().initialize('resource://drawable/logo_e', [
+    NotificationChannel(
+        channelDescription: 'Notification',
+        channelKey: 'basic key',
+        channelName: 'Yara',
+        defaultColor: Colors.blue,
+        importance: NotificationImportance.High,
+        playSound: true,
+        channelShowBadge: true),
+  ]);
   CategoriesService(Dio()).requestForCategories();
   setUpServiceLocator();
   await getIt<CacheHelper>().initSharedPreferences();
@@ -139,7 +152,7 @@ class MyApp extends StatelessWidget {
                 },
                 */
               },
-              home: LoginPage(),
+              home: NavigationHomePage(),
               //NavigationHomePage(),
             ));
       },

@@ -1,4 +1,5 @@
 import 'package:eventk/Features/Home/Presentation/Views/notificationPage.dart';
+import 'package:eventk/Features/Notification/notif.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_icons/line_icons.dart';
@@ -13,7 +14,7 @@ class IconNotification extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (BuildContext context) {
-              return EmptyNotificationsScreen();
+              return Noti();
             },
           ),
         );

@@ -50,7 +50,7 @@ class SignupPage extends StatelessWidget {
                 ));
           } else if (state is FailureSignupState) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(' Email is exit alerady'),
+              content: Text(' Email is alerady exit'),
               backgroundColor: Colors.red,
             ));
             isLoading = false;

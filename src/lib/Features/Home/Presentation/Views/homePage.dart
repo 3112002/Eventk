@@ -37,7 +37,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> location() async {
-    await Userislatitudealongitude().GetLocation();
+    try {
+      await Userislatitudealongitude().GetLocation();
+    } catch (e) {
+      loadingLocation = false;
+      print("Location error: $e");
+    }
+
+    // await Userislatitudealongitude().GetLocation();
     final newLat = getIt<CacheHelper>().getData(key: 'latitude');
     final newLong = getIt<CacheHelper>().getData(key: 'longitude');
     setState(() {
@@ -110,13 +117,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           SliverToBoxAdapter(
-            child: 
-                 Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: OrganizationListView(),
-                  )
-               
-          ),
+              child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: OrganizationListView(),
+          )),
         ],
       ),
     );

@@ -13,7 +13,7 @@ class _PriceRangeWidgetState extends State<PriceRangeWidget> {
   double mnValue = 0.0;
   double mxValue = 10000.0;
   int i = 0;
-  RangeValues values = RangeValues(0.0, 1000.0);
+  RangeValues values = RangeValues(0.0, 10000.0);
   @override
   Widget build(BuildContext context) {
     return SizedBox(

@@ -12,8 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-int selectedValue = 0;
-
 /*Yara Adel Mohamed*/
 class CategoryFilterUI extends StatefulWidget {
   const CategoryFilterUI({super.key, this.initialValue, this.onChanged});
@@ -25,7 +23,7 @@ class CategoryFilterUI extends StatefulWidget {
 
 class _CategoryFilterUIState extends State<CategoryFilterUI> {
   late String? groupValue;
-
+  int selectedValue = 0;
   @override
   void initState() {
     super.initState();
@@ -43,6 +41,10 @@ class _CategoryFilterUIState extends State<CategoryFilterUI> {
       groupValue = newValue;
       // getIt<CacheHelper>().saveData(key: 'selectedDate', value: groupValue);
     });
+    final cachedId = getIt<CacheHelper>().getData(key: "categoryId");
+    if (cachedId != null) {
+      selectedValue = cachedId as int;
+    }
     widget.onChanged?.call(newValue);
   }
 

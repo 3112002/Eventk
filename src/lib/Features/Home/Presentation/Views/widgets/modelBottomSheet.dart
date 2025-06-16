@@ -11,9 +11,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /*Yara Adel Mohamed*/
 class ModelBottomSheet extends StatefulWidget {
-  const ModelBottomSheet({super.key, this.selectedIndex, this.name});
+  const ModelBottomSheet(
+      {super.key, this.selectedIndex, this.name, this.date, this.isPaid});
   final int? selectedIndex;
   final String? name;
+  final String? date;
+  final bool? isPaid;
   @override
   State<ModelBottomSheet> createState() => _ModelBottomSheetState();
 }
@@ -39,6 +42,7 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
   double? selectedDistanceKm;
   double? selectedMinPrice;
   double? selectedMaxPrice;
+  bool? isPaid;
   @override
   void initState() {
     super.initState();
@@ -47,10 +51,14 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
       vsync: this,
       initialIndex: widget.selectedIndex ?? 0,
     );
-    getIt<CacheHelper>().saveData(key: 'selectedDate', value: widget.name);
+    selectedCategory = widget.name;
+    selectedDate = widget.date;
+    isPaid = widget.isPaid;
     tabController.addListener(handleTabChange);
-    selectedDate =
-        getIt<CacheHelper>().getData(key: 'selectedDate') ?? widget.name;
+
+    // tabController.addListener(handleTabChange);
+    // selectedDate =
+    //     getIt<CacheHelper>().getData(key: 'selectedDate') ?? widget.name;
 
     print(widget.selectedIndex);
   }
@@ -59,6 +67,26 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
     if (tabController.indexIsChanging) {
       setState(() {});
     }
+  }
+
+  void resetState() {
+    setState(() {
+      selectedCategory = null;
+      selectedDate = null;
+      selectedDistanceKm = null;
+      selectedMinPrice = null;
+      selectedMaxPrice = null;
+
+      fromDate = null;
+      toDate = null;
+      getIt<CacheHelper>().removeData(key: 'categoryId');
+      getIt<CacheHelper>().removeData(key: 'fromDate');
+      getIt<CacheHelper>().removeData(key: 'toDate');
+      getIt<CacheHelper>().removeData(key: 'isPaid');
+      getIt<CacheHelper>().removeData(key: 'minPrice');
+      getIt<CacheHelper>().removeData(key: 'maxPrice');
+      getIt<CacheHelper>().removeData(key: 'Radius');
+    });
   }
 
   final address = getIt<CacheHelper>().getData(key: 'address');
@@ -127,7 +155,7 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
         Expanded(
           child: TabBarView(controller: tabController, children: [
             CategoryFilterUI(
-              initialValue: widget.name,
+              initialValue: selectedCategory,
             ),
             DateFilterUI(
               initialValue: selectedDate,
@@ -151,7 +179,7 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                   );
                 } else if (selectedDate == 'This year') {
                   fromDate = today;
-                  toDate = DateTime(now.year, now.month + 1, 0);
+                  toDate = DateTime(now.year + 1, now.month, 0);
                 } else if (selectedDate == 'Tomorrow') {
                   fromDate = today.add(Duration(hours: 24));
                   toDate = today.add(Duration(hours: 48));
@@ -221,6 +249,7 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
 
                   getIt<CacheHelper>()
                       .saveData(key: 'endPoint', value: endPoint);
+
                   getIt<CacheHelper>().removeData(key: 'categoryId');
                   getIt<CacheHelper>().removeData(key: 'fromDate');
                   getIt<CacheHelper>().removeData(key: 'toDate');
@@ -228,7 +257,6 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                   getIt<CacheHelper>().removeData(key: 'minPrice');
                   getIt<CacheHelper>().removeData(key: 'maxPrice');
                   getIt<CacheHelper>().removeData(key: 'Radius');
-                  selectedDate = null;
                   Navigator.pop(context, endPoint);
                 },
                 child: Text('Apply'),
@@ -243,6 +271,10 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                 ),
                 onPressed: () {
                   String endPoint = '';
+                  selectedDate = null;
+                  selectedCategory = null;
+                  getIt<CacheHelper>().removeData(key: 'categoryId');
+                  resetState();
                   Navigator.pop(context, endPoint);
                 },
                 child: Text('Clear all'),

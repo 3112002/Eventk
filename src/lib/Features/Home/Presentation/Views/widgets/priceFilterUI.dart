@@ -5,17 +5,16 @@ import 'package:eventk/Features/Home/Presentation/Views/widgets/priceRange.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-int selectedValue = 0;
-
 /*Yara Adel Mohamed*/
 class PriceFilterUI extends StatefulWidget {
-  const PriceFilterUI({super.key});
-
+  const PriceFilterUI({super.key, this.isPaid});
+  final int? isPaid;
   @override
   State<PriceFilterUI> createState() => _PriceFilterUIState();
 }
 
 class _PriceFilterUIState extends State<PriceFilterUI> {
+  int selectedValue = 0;
   @override
   Widget build(BuildContext context) {
     return Column(

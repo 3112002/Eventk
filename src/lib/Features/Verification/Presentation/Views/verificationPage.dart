@@ -46,7 +46,6 @@ class _VerificationState extends State<VerificationPage> {
 
   @override
   void dispose() {
-    super.dispose();
     _timer.cancel();
     otpController.dispose();
     emailController.dispose();
@@ -192,7 +191,9 @@ class _VerificationState extends State<VerificationPage> {
                           Padding(padding: EdgeInsets.only(top: 10.h)),
                           Text(
                             '$resend',
-                            style: TextStyle(color: kButtonsColor),
+                            style: resend == 0
+                                ? TextStyle(color: kButtonsColor)
+                                : TextStyle(color: Colors.grey),
                           ),
                         ],
                       ),
@@ -242,6 +243,7 @@ class _VerificationState extends State<VerificationPage> {
         setState(() {
           showResendButton = true;
           timer.cancel();
+          //resend = 30;
         });
       } else {
         setState(() {
