@@ -52,8 +52,9 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
       initialIndex: widget.selectedIndex ?? 0,
     );
     selectedCategory = widget.name;
-    selectedDate = widget.date;
-    isPaid = widget.isPaid;
+    selectedDate = getIt<CacheHelper>().getData(key: 'selectedDate');
+    isPaid = getIt<CacheHelper>().getData(key: 'isPaid');
+    selectedDistanceKm = getIt<CacheHelper>().getData(key: 'Radius');
     tabController.addListener(handleTabChange);
 
     // tabController.addListener(handleTabChange);
@@ -83,6 +84,7 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
       getIt<CacheHelper>().removeData(key: 'fromDate');
       getIt<CacheHelper>().removeData(key: 'toDate');
       getIt<CacheHelper>().removeData(key: 'isPaid');
+      getIt<CacheHelper>().removeData(key: 'selectedDate');
       getIt<CacheHelper>().removeData(key: 'minPrice');
       getIt<CacheHelper>().removeData(key: 'maxPrice');
       getIt<CacheHelper>().removeData(key: 'Radius');
@@ -190,8 +192,25 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                     .saveData(key: 'toDate', value: toDate.toString());
               }),
             ),
-            address == null ? TurnOnLocation() : DistanceFilterUI(),
-            PriceFilterUI(),
+            address == null
+                ? TurnOnLocation()
+                : DistanceFilterUI(
+                    initialValue: selectedDistanceKm,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedDistanceKm = value;
+                        getIt<CacheHelper>()
+                            .saveData(key: 'Radius', value: value);
+                      });
+                    },
+                  ),
+            PriceFilterUI(
+              initialValue: isPaid,
+              onChanged: (value) => setState(() {
+                isPaid = value;
+                getIt<CacheHelper>().saveData(key: 'isPaid', value: isPaid);
+              }),
+            ),
           ]),
         ),
         Divider(
@@ -250,13 +269,13 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                   getIt<CacheHelper>()
                       .saveData(key: 'endPoint', value: endPoint);
 
-                  getIt<CacheHelper>().removeData(key: 'categoryId');
-                  getIt<CacheHelper>().removeData(key: 'fromDate');
-                  getIt<CacheHelper>().removeData(key: 'toDate');
-                  getIt<CacheHelper>().removeData(key: 'isPaid');
-                  getIt<CacheHelper>().removeData(key: 'minPrice');
-                  getIt<CacheHelper>().removeData(key: 'maxPrice');
-                  getIt<CacheHelper>().removeData(key: 'Radius');
+                  // getIt<CacheHelper>().removeData(key: 'categoryId');
+                  // getIt<CacheHelper>().removeData(key: 'fromDate');
+                  // getIt<CacheHelper>().removeData(key: 'toDate');
+                  // getIt<CacheHelper>().removeData(key: 'isPaid');
+                  // getIt<CacheHelper>().removeData(key: 'minPrice');
+                  // getIt<CacheHelper>().removeData(key: 'maxPrice');
+                  // getIt<CacheHelper>().removeData(key: 'Radius');
                   Navigator.pop(context, endPoint);
                 },
                 child: Text('Apply'),
@@ -271,8 +290,7 @@ class _ModelBottomSheetState extends State<ModelBottomSheet>
                 ),
                 onPressed: () {
                   String endPoint = '';
-                  selectedDate = null;
-                  selectedCategory = null;
+
                   getIt<CacheHelper>().removeData(key: 'categoryId');
                   resetState();
                   Navigator.pop(context, endPoint);

@@ -8,15 +8,15 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DistanceFilterUI extends StatefulWidget {
-  const DistanceFilterUI({super.key});
-
+  const DistanceFilterUI({super.key, this.initialValue, this.onChanged});
+  final double? initialValue;
+  final ValueChanged<double>? onChanged;
   @override
   State<DistanceFilterUI> createState() => _DistanceFilterUIState();
 }
 
-final address = getIt<CacheHelper>().getData(key: 'address');
-
 class _DistanceFilterUIState extends State<DistanceFilterUI> {
+  final address = getIt<CacheHelper>().getData(key: 'address');
   Set<String> selectedDistance = {'5 kms'};
 
   void updateSelected(Set<String> selection) {
@@ -33,7 +33,12 @@ class _DistanceFilterUIState extends State<DistanceFilterUI> {
       children: [
         Padding(
           padding: EdgeInsets.only(top: 50.h),
-          child: address != null ? SelectDistanceWidget() : TurnOnLocation(),
+          child: address != null
+              ? SelectDistanceWidget(
+                  initailValue: widget.initialValue,
+                  onChanged: widget.onChanged,
+                )
+              : TurnOnLocation(),
         ),
       ],
     );

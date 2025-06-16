@@ -7,46 +7,51 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /*Yara Adel Mohamed*/
 class PriceFilterUI extends StatefulWidget {
-  const PriceFilterUI({super.key, this.isPaid});
-  final int? isPaid;
+  const PriceFilterUI({super.key, this.initialValue, this.onChanged});
+  final bool? initialValue;
+  final ValueChanged<bool>? onChanged;
   @override
   State<PriceFilterUI> createState() => _PriceFilterUIState();
 }
 
 class _PriceFilterUIState extends State<PriceFilterUI> {
-  int selectedValue = 0;
+  late bool? isPaid;
+  @override
+  void initState() {
+    super.initState();
+    isPaid = widget.initialValue ?? null;
+  }
+
+  void handleChange(bool? newValue) {
+    setState(() {
+      isPaid = newValue;
+    });
+    getIt<CacheHelper>().saveData(key: 'isPaid', value: isPaid);
+    widget.onChanged?.call(isPaid!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Row(
           children: [
-            Radio(
-              groupValue: selectedValue,
-              value: 1,
+            Radio<bool>(
+              groupValue: isPaid,
+              value: false,
               activeColor: Colors.blue,
-              onChanged: (value) {
-                setState(() {
-                  selectedValue = value!;
-                  getIt<CacheHelper>().saveData(key: 'isPaid', value: false);
-                });
-              },
+              onChanged: handleChange,
             ),
             Text('Free Tickets', style: Styles.styleText20),
           ],
         ),
         Row(
           children: [
-            Radio(
-              groupValue: selectedValue,
-              value: 2,
+            Radio<bool>(
+              groupValue: isPaid,
+              value: true,
               activeColor: Colors.blue,
-              onChanged: (value) {
-                setState(() {
-                  selectedValue = value!;
-                  getIt<CacheHelper>().saveData(key: 'isPaid', value: true);
-                });
-              },
+              onChanged: handleChange,
             ),
             Text('Paid Tickets', style: Styles.styleText20),
           ],

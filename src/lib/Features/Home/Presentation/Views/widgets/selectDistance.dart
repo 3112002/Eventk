@@ -6,16 +6,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class SelectDistanceWidget extends StatefulWidget {
-  const SelectDistanceWidget({super.key});
-
+  const SelectDistanceWidget({super.key, this.initailValue, this.onChanged});
+  final double? initailValue;
+  final ValueChanged<double>? onChanged;
   @override
   State<SelectDistanceWidget> createState() => _SelectDistanceWidgetState();
 }
 
 class _SelectDistanceWidgetState extends State<SelectDistanceWidget> {
-  double mvalue = 0.0;
   double mxValue = 1000.0;
   RangeValues values = RangeValues(0.0, 1000.0);
+  late double mvalue;
+
+  @override
+  void initState() {
+    super.initState();
+
+    mvalue = widget.initailValue?.toDouble() ?? 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,8 +54,9 @@ class _SelectDistanceWidgetState extends State<SelectDistanceWidget> {
                 onChanged: (dynamic value) {
                   setState(() {
                     mvalue = value;
-                    getIt<CacheHelper>().saveData(key: 'Radius', value: mvalue);
                   });
+                  getIt<CacheHelper>().saveData(key: 'Radius', value: mvalue);
+                  widget.onChanged?.call(mvalue);
                 },
               ),
             )),
